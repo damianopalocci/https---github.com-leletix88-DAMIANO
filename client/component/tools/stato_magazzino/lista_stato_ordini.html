@@ -1,0 +1,226 @@
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-3 col-12 mt-5 mt-md-0">
+            <div class="card card-nav-tabs">
+
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 text-center ">
+                    <div style="background-color: #38b000; color: white;" class=" shadow-secondary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-uppercase ps-1" style="font-size: 25px;">Ordini Totali</h6>
+                    </div>
+
+                    <h4 class="my-3" style="font-size: 30px;">{{dataorder.length}}</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-12 mt-5 mt-md-0">
+            <div class="card card-nav-tabs">
+
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 text-center ">
+                    <div style="background-color: #9d0208; color: white;" class=" shadow-secondary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-uppercase ps-1" style="font-size: 25px;">In Preparazione</h6>
+                    </div>
+
+                    <h4 class="my-3" style="font-size: 30px;">{{(dataorder | filter: {STATO:"0"}).length}}</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-12 mt-5 mt-md-0">
+            <div class="card card-nav-tabs">
+
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 text-center ">
+                    <div style="background-color: #0071c7; color: white;" class=" shadow-secondary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-uppercase ps-1" style="font-size: 25px;">Packaging</h6>
+                    </div>
+
+                    <h4 class="my-3" style="font-size: 30px;">{{(dataorder | filter: {STATO:"1"}).length}}</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-12 mt-5 mt-md-0">
+            <div class="card card-nav-tabs">
+
+                <div class="card-header p-0 position-relative mt-n4 mx-1 z-index-2 text-center ">
+                    <div style="background-color: #eb7907; color: white;" class=" shadow-secondary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-uppercase ps-1" style="font-size: 25px;">Attesa Spedizione</h6>
+                    </div>
+
+                    <h4 class="my-3" style="font-size: 30px;">{{(dataorder | filter: {STATO:"2"}).length}}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-4 col-12 mt-5 offset-md-1">
+            <div class="card card-nav-tabs" style=" background-color: #fad075;">
+
+                <h5 class="m-3 text-center" style="font-size: 20px;">Ricarico pagina tra {{timer}} secondi</h5>
+
+            </div>
+        </div>
+        <div class="col-md-3 col-12 mt-5 text-center">
+            <a type="button" data-bs-toggle="modal" data-bs-target="#pinmodal">
+                <div class="card card-nav-tabs bg-gradient-info">
+                    <h5 class="my-3 text-center text-uppercase px-3" style="font-size: 20px; color: white;">PIN Modifiche
+                    </h5>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="pinmodal" tabindex="-1" role="dialog" aria-labelledby="pinmodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <div class="card card-plain">
+                    <div class="card-header pb-0 text-left">
+                        <h5 class="">Pin di Accesso Modifiche</h5>
+                    </div>
+                    <div class="card-body">
+                        <form role="form text-left">
+                            <div class="input-group input-group-outline my-3">
+                                <input placeholder="Pin" type="password" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)" ng-model="mypin">
+                            </div>
+                            <div class="text-center">
+                                <button type="button" class="btn btn-round bg-gradient-info btn-lg w-100 mt-4 mb-0" ng-click="pin(mypin)">Sblocca</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-11 my-4">
+            <div class="card card-nav-tabs" style=" background-color: #fad075;">
+
+                <div class="card">
+                    <div class="table-responsive">
+                        <table class="table align-items-center mb-0">
+                            <thead class="text-center">
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7">Data Conferma
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7">
+                                        Day Diff</th>
+                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bold opacity-7">
+                                        Numero Ordine</th>
+                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bold opacity-7">
+                                        Cliente</th>
+                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bold opacity-7">
+                                        Stato</th>
+
+                                    <th ng-if='modview == true' class="text-center text-uppercase text-secondary text-xs font-weight-bold opacity-7">
+                                        Action</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody class="text-center">
+
+                                <tr ng-repeat="el in dataorder | orderBy:'data_conferma'">
+                                    <td>
+                                        <p class=" text-xs text-secondary mb-0">{{el.data_conferma | date:'dd/MM/yyyy'}}
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs text-secondary mb-0">{{calc_daydiff(el.data_conferma)}}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs text-secondary mb-0">{{el.NUMDOC}}</p>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-normal">{{el.CLIENTE}}.</span>
+                                    </td>
+                                    <td ng-if="el.STATO == '0'">
+                                        <span class="badge" style="background-color: #9d0208 !important;">
+                                            <i class="fas fa-hourglass-start"></i>
+                                            <span class="ml-2">In Preparazione</span>
+                                        </span>
+                                    </td>
+
+
+                                    <td ng-if="el.STATO == '1'">
+                                        <span class="badge" style="background-color: #0071c7 !important;"> <i class="fas fa-box"></i> <span
+                                                class="ml-2">Packaging</span>
+                                        </span>
+                                    </td>
+                                    <td ng-if="el.STATO == '2'">
+                                        <span class="badge" style="background-color: #eb7907 !important;"> <i class="fas fa-truck-loading"></i><span
+                                                class="ml-2"> In Attesa
+                                                Spedizione</span></span>
+                                    </td>
+                                    <td ng-if="el.STATO == '3'">
+                                        <span class="badge" style="background-color: #38b000 !important;"> <i class="fas fa-plane"></i> <span
+                                                class="ml-2">Spedito</span>
+                                        </span>
+                                    </td>
+
+                                    <td ng-if='modview == true'>
+                                        <!-- Modal Button-->
+                                        <a name="" id="" class="btn btn-dark" role="button" data-bs-toggle="modal" data-bs-target="#modelId" ng-click="datamodal($index)"> Modifica</a>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" ng-contreller="magazzino" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" style="font-size: 28px; width: 100%;"> {{modal_select_data.NUMDOC}} - {{modal_select_data.CLIENTE}}
+                                                        </h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+
+                                                        <a name="" id="" class="btn btn-primary mt-2" href="{{modal_select_data.prep}}" role="button">Praparazione</a>
+                                                        <a name="" id="" class="btn btn-primary mt-2" href="{{modal_select_data.pack}}" role="button">Packaging</a>
+                                                        <a name="" id="" class="btn btn-primary mt-2" href="{{modal_select_data.aspe}}" role="button">Attesa
+                                                                Spedizione</a>
+                                                        <a name="" id="" class="btn btn-primary mt-2" href="{{modal_select_data.spe}}" role="button">Spedito</a>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <script>
+                                            var modelId = document.getElementById('modelId');
+
+                                            modelId.addEventListener('show.bs.modal', function(event) {
+                                                // Button that triggered the modal
+                                                let button = event.relatedTarget;
+                                                // Extract info from data-bs-* attributes
+                                                let recipient = button.getAttribute('data-bs-whatever');
+
+                                                // Use above variables to manipulate the DOM
+                                            });
+                                        </script>
+
+
+
+                                    </td>
+
+
+                                </tr>
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

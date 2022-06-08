@@ -1,0 +1,59 @@
+<div class="alert alert-success" style="color: white;" role="alert" ng-if="msg === 0">
+    Email Inviata Correttamente <i class="fas fa-check-square"></i>
+</div>
+<div class="alert alert-warning" style="color: white;" role="alert" ng-if="tsend === 1">
+    Invio Email in corso ...<i class="fas fa-paper-plane"></i>
+</div>
+<div class="alert alert-danger" style="color: white;" role="alert" ng-if="msg === 2">
+    Email non Inviata <i class="fas fa-times "></i>
+</div>
+
+
+<div ng-show="tsend != 1" class="container">
+    <div class="row no-gutters">
+        <div class="col-md-6 col-12 ">
+
+
+
+
+            <div class="card card-nav-tabs">
+
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 text-center ">
+                    <div style="background-color: #33415C; color: white;" class=" shadow-secondary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-uppercase ps-3" style="font-size: 25px;">Comunicazione Articoli Superati</h6>
+                    </div>
+                </div>
+
+                <form class="p-3 mt-4 pb-0">
+
+                    <div class="form-group">
+                        <label class="text-uppercase font-weight-bold" for="codice" style="font-size: 16px;">Codice</label>
+                        <input type="text" class="form-control mb-3 p-2 text-uppercase" id="codice" placeholder="codice" ng-model="codice" style=" border: 1px solid rgba(128, 128, 128, 0.438);">
+                    </div>
+                    <div class="form-floating ">
+                        <textarea class="form-control p-4 " placeholder="Leave a comment here " ng-model="note" id="floatingTextarea2 " style="height: 100px; border: 1px solid rgba(128, 128, 128, 0.438); " ng-model="note "></textarea>
+                        <label class="p-3 " for="note ">Note Aggiuntive</label>
+                    </div>
+                    <br>
+
+                </form>
+
+                <button type="submit " ng-click="cerca(codice)" class="btn text-uppercase float-end mx-4 " style="background-color: #33415C; color: white; font-size: 15px; ">cerca</button>
+            </div>
+        </div>
+        <div class="col-md-6 col-12 mt-4 mt-md-0 mb-1">
+
+            <div class="alert alert-danger" style="color: white;" role="alert" ng-if="info_art[0]['descrizione'] === ''">
+                Nessun Articolo Trovato <i class="fa-solid fa-face-frown" style="margin-left: 8px;"></i>
+            </div>
+
+
+            <div ng-include="'./component/tools/articoli_superati/widget/articolo.html' " ng-if="info_art[0]['descrizione']">
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+<div class="mt-2 mb-4 text-white bg-dark rounded-3" ng-if="action=='new'">
+    <div class="container-fluid py-5 text-center">
+        <h1 class="display-5 fw-bold">Nuovo Articolo</h1>
+    </div>
+</div>
+<div class="mt-2 mb-4 text-white bg-dark rounded-3" ng-if="action=='mod'">
+    <div class="container-fluid py-5 text-center">
+        <h1 class="display-5 fw-bold">Modifica Articolo</h1>
+    </div>
+</div>
+
+<form ng-if="action=='new'">
+    <div class="mb-3">
+        <label for="nostro_codice" class="form-label">Nostro Codice</label>
+        <input type="text" class="form-control" id="nostro_codice" ng-model="artico.mcode">
+    </div>
+    <div class="mb-3">
+        <label for="loro_codice" class="form-label">Loro Codice</label>
+        <input type="text" class="form-control" id="loro_codice" ng-model="artico.codice">
+    </div>
+    <div class="form-floating">
+        <textarea class="form-control" placeholder="Descrizione Prodotto" id="descrizione" ng-model="artico.descrizione"></textarea>
+        <label for="descrizione">Descrizione</label>
+    </div>
+    <button type="button" class="btn btn-success mt-4" ng-click="insert(artico)">Crea</button>
+</form>
+
+
+<div ng-if="msg.message == false">
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <strong> >Errore modifica Dati</strong>
+    </div>
+
+    <script>
+        var alertList = document.querySelectorAll('.alert');
+        alertList.forEach(function(alert) {
+            new bootstrap.Alert(alert)
+        })
+    </script>
+</div>
+
+<form ng-if="action=='mod'">
+    <div class="mb-3">
+        <label for="nostro_codice" class="form-label">Nostro Codice</label>
+        <input type="text" class="form-control" id="nostro_codice" ng-model="articolo.codice">
+    </div>
+    <div class="mb-3">
+        <label for="loro_codice" class="form-label">Loro Codice</label>
+        <input type="text" class="form-control" id="loro_codice" ng-model="articolo.loro_codice">
+    </div>
+    <div class="form-floating">
+
+        <textarea class="form-control" placeholder="Descrizione Prodotto" id="descrizione" ng-model="articolo.descrizione"></textarea>
+        <label for="descrizione">Descrizione</label>
+    </div>
+    <button type="button" class="btn btn-primary mt-4" ng-click="modifica()">Modifica</button>
+</form>

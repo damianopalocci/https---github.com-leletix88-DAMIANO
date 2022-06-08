@@ -1,0 +1,865 @@
+<style>
+    #printOnly {
+        display: none;
+    }
+    
+    #elem2 {
+        display: none;
+    }
+    
+    #text_banner1 {
+        display: none;
+    }
+    
+    #text_banner2 {
+        display: inline-block;
+    }
+    
+    .col_red {
+        background-color: rgba(202, 0, 0, 0.852);
+        color: whitesmoke;
+    }
+    
+    .col_green {
+        background-color: rgba(0, 199, 0, 0.82);
+        color: white
+    }
+    
+    @media print {
+        .no-print {
+            display: none !important;
+        }
+        #printOnly {
+            display: inline-block;
+        }
+        #elem2 {
+            display: inline-block;
+        }
+        #text_banner1 {
+            display: inline-block;
+        }
+        #text_banner2 {
+            display: none !important;
+        }
+        .col_red {
+            display: none;
+        }
+    }
+</style>
+
+
+<div class="row no-gutters" id="printbox">
+    <div class="col-12">
+        <button ng-click="print_element('elem','elem1','elem2','elem3','elem4','printOnly')" ng-show="db_note_preventivo.length > 0 " style="font-size: 16px;" class="btn btn-info text-uppercase float-end me-5 no-print px-4">stampa pagina</button>
+        <button ng-click="print_element_P_I_tab('elem','elem1','elem2','elem3','elem4','printOnly')" ng-show="db_note_preventivo.length > 0" style="font-size: 16px;" class="btn btn-success text-uppercase float-end me-3 no-print px-4">stampa tabelle P/I</button>
+    </div>
+</div>
+
+
+
+<div id="printOnly" class="row no-gutters ">
+    <div class="col-md-12" style="float: right; margin-top: 45px;">
+
+        <p style="font-style: italic; margin-left: 5px; margin-bottom: 10px;">Firma</p>
+
+
+        <span class="mt-2">-------------------------------------------</span>
+    </div>
+
+</div>
+
+
+<div class="container-fluid mt-1 vh-100">
+    <div class="row no-gutters">
+        <div class=" col-md-4 col-12 mb-3" id="elem">
+
+
+            <div class="card shadow py-2 no-print" style="border-left: 5px solid green;">
+                <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col mr-2">
+                            <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>Data
+                                    Inserimento</span></div>
+                            <div class="text-dark font-weight-bold h5 mb-0"><span class="ng-binding" style="font-size: 30px;">{{db_articolo.insert_date}}</span>
+                            </div>
+                        </div>
+                        <div class="col-auto"><i style="font-size: 35px;" class="fa-solid fa-clock text-gray-300 me-2"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card shadow mt-3 mt-md-2 py-2 infotop no-print" style="border-left: 5px solid orangered;">
+                <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col mr-2">
+                            <div class="text-uppercase font-weight-bold text-xs mb-1"><span style="color: orangered ;">Stato</span>
+                            </div>
+                            <div class="text-dark font-weight-bold h5 mb-0 "><span class="ng-binding " style="font-size: 30px;">{{db_articolo.stato}}</span>
+                            </div>
+                            <span ng-if="db_articolo.brevetto && db_articolo.brevetto == true" class="mt-5" style="font-size: 13px; color: #ff7b00;"><strong style="font-size: 15px;">Attenzione !!</strong> Articolo sottoposto a <strong style="color: red; font-size: 15px;">Brevetto</strong></span>
+                        </div>
+                        <div class="col-auto"><i style="font-size: 35px;" class="fa-solid fa-volume-high text-gray-300"></i></div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow mt-3 mt-md-2 py-2 infotop " style="border-left: 5px solid  #4895ef;">
+                <div class="card-body">
+                    <div class="row align-items-center no-gutters">
+                        <div class="col mr-2">
+                            <div class="text-uppercase font-weight-bold text-xs mb-1">
+                                <span class="text_banner1" style="color: #4895ef; display: inline;">Totale Quantità Annua da Indagini</span>
+                                <span id="text_banner1" class="text_banner" style="font-size: 28px;">{{tot_qta_indagini}}</span>
+                            </div>
+                            <div id="text_banner2" class="text-dark font-weight-bold mb-0 no-print">
+                                <span style="font-size: 30px;">{{tot_qta_indagini}}</span>
+                            </div>
+                        </div>
+                        <div class="col-auto"><i style="font-size: 40px;" class="fa-solid fa-box text-gray-300 me-2"></i></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="col-md-8 col-12 " id="elem1">
+            <div class="card card-frame art">
+                <div class="card-body">
+
+                    <div class="row no-gutters">
+                        <div class="col-md-5 text-center">
+                            <img class="mt-md-4 pt-md-4 pt-0 mt-0" src="{{db_articolo.img}}" width="60%" alt="">
+                        </div>
+                        <div class="col-md-4">
+
+                            <div class="row no-gutters">
+                                <div class="col-12 mb-md-4 pb-md-1 mb mt-5 mt-sm-0">
+                                    <p><b style="font-size: 30px; color: rgba(80, 80, 80, 0.94);">{{db_articolo.cod_interno}}</b>
+                                    </p>
+                                    <p><b>Descrizione</b> <br> {{db_articolo.descrizione}}
+                                    </p>
+                                    <p><b>Marca</b> <br> {{db_articolo.marca}}
+                                    </p>
+                                    <p><b>Codice Fornitore </b> <br>{{db_articolo.cod_fornitore}}
+                                    </p>
+                                    <p><b>Modello</b><br> {{db_articolo.modello}}
+                                    </p>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+
+                            <div class="row no-gutters">
+                                <div class="col-12 mt-3">
+                                    <p><b>Note</b> <br>{{db_articolo.note}}
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="row no-gutters justify-content-center">
+        <div class="col-12 col-md-10 text-center mt-4">
+            <div class="card card-frame">
+                <div class="card-body">
+
+
+                    <a type="button" href="#!/rs/campione/modifica/{{articoid}}"> <i class="fa-solid fa-wrench mr-sm-5 pr-sm-5 ml-4 pr-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Modifica Campione" style=" font-size: 23px; color: #4ccaf0a1;"></i></a>
+                    <a ng-click="button_preventivo()" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i class="fa-solid fa-money-bill-1-wave px-sm-5 mx-sm-5 px-4 mx-4" data-bs-toggle="tooltip" data-bs-placement="top" title="Inserisci Preventivo " style="font-size: 23px; color: #faa307 ;"></i></a>
+                    <a ng-click="button_nota()" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2"> <i class="fa-solid fa-message  me-sm-5 pe-sm-5" data-bs-toggle="tooltip" data-bs-placement="top" title="Aggiungi Note" style="font-size: 23px; color: #4cf000;"></i></a>
+                    <a ng-click="button_nota()" type="button" data-bs-toggle="modal" data-bs-target="#mymodal" ng-show="login_info.role == 'Admin' || login_info.role == 'Acq'"> <i class="fa-solid fa-comment" data-bs-toggle="tooltip" data-bs-placement="top" title="Modifica Stato" style="font-size: 23px; color: red;"></i></a>
+                    <a ng-click="button_indagine()" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal3"> <i class="fa-solid fa-magnifying-glass mx-sm-5 px-sm-5" data-bs-toggle="tooltip" data-bs-placement="top" title="Inserimento Indagine" style="font-size: 23px; color: #023e8a;"></i></a>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <div class="col-md-12 text-center mt-3 mb-2" ng-show="db_indagine_tab.length > 0 || db_note_articolo.length > 0 || db_note_preventivo.length > 0">
+        <div class="card card-frame">
+            <div class="card-body no-print">
+                <div class="row no-gutters justify-content-center my-1">
+                    <div class="col-md-2 text-center my-2 p-0">
+                        <a style="cursor: pointer;" ng-click="vws='Indagini'" ng-show="db_indagine_tab.length > 0">
+                            <div class="card card-frame" style="background-color: #2c7da0;">
+                                <div class="card-body p-0">
+
+
+                                    <h6 class="text-uppercase mt-2" style="color: white;">indagini</h6>
+
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+
+                    <div class="col-md-2 mx-4 text-center my-2 p-0">
+                        <a style="cursor: pointer;" ng-click="vws='Note'" ng-show="db_note_articolo.length > 0 && (db_note_articolo | filter : { 'tipo': 'Generica' } : true).length >0">
+                            <div class="card card-frame" style="background-color: #ffd500;">
+                                <div class="card-body p-0">
+
+
+                                    <h6 class="text-uppercase mt-2" style="color: white;">Note
+                                    </h6>
+
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-md-2 text-center my-2 p-0">
+                        <a style="cursor: pointer;" ng-click="vws = 'Preventivo'" ng-show="db_note_preventivo.length > 0">
+                            <div class="card card-frame" style="background-color: #ff7b00;">
+                                <div class="card-body p-0">
+
+
+                                    <h6 class="text-uppercase mt-2" style="color: white;">
+                                        Note Preventivo</h6>
+
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-2 text-center my-2 p-0 mx-4">
+                        <a style="cursor: pointer;" ng-click="vws='Tecnica'" ng-show="db_note_articolo.length > 0 && (db_note_articolo | filter : { 'tipo': 'Tecnica' } : true).length >0 ">
+                            <div class="card card-frame" style="background-color: #ba181b;">
+                                <div class="card-body p-0">
+
+
+                                    <h6 class="text-uppercase mt-2" style="color: white;">Note Tecniche </h6>
+
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-2 text-center my-2 p-0">
+                        <a style="cursor: pointer;" ng-click="vws='Tutte_Note'" ng-show="db_note_articolo.length > 0">
+                            <div class="card card-frame" style="background-color: #2b9348;">
+                                <div class="card-body p-0">
+
+                                    <h6 class="text-uppercase mt-2 px-md-1 px-lg-0" style="color: white;">Tutte le Note
+                                    </h6>
+
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row no-gutters mt-3 mt-md-4" ng-show="vws">
+        <div class="col-md-12 mb-5">
+
+            <div class="card card-frame ">
+                <div class="card-body p-3">
+
+                    <div id="elem4" ng-show="vws == 'Preventivo'" class="table-responsive rounded" style="box-shadow: 2px 2px 4px 4px rgba(128, 128, 128, 0.377); ">
+
+                        <button ng-click="exportToExcelpreventivo()" class="btn btn-success text-uppercase px-5 m-3 no-print">report exel</button>
+
+                        <div class="m-3 no-print">
+                            <input type="text" class="form-control p-2" style="background-color: white;border: 1px solid rgba(128, 128, 128, 0.371);" name="" id="" aria-describedby="helpId" placeholder="Ricerca..." ng-model="myfilter1">
+                        </div>
+                        <table class="table align-items-center mb-0 " id="mytable">
+                            <thead class="text-center ">
+                                <tr class="text-center ">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                        Data D'Inserimento
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                        Fornitore
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                        Costo Articolo</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                        Costo Stampa / Attrezzatura</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                        Moq</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                        Ns Risposta / Richieste</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                        Note</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                        Inserito da</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 no-print">
+                                        Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center">
+                                <tr ng-repeat="ntp in db_note_preventivo" ng-class="{'col_red': ntp.stato == 0 , 'col_green': ntp.stato == 1}">
+                                    <td>
+                                        <p class="text-md font-weight-normal mb-0 ">{{ntp.insert_date}}</p>
+                                    </td>
+                                    <td>
+                                        <div class=" text-center ">
+                                            <p class="mb-0 text-md text-uppercase font-weight-bold ">{{ntp.fornitore}}</p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="text-md font-weight-normal mb-0 ">{{ntp.cost_art}}</p>
+                                    </td>
+
+                                    <td>
+                                        <p class="text-md font-weight-normal mb-0 ">{{ntp.cost_stamp_attrez}}</p>
+                                    </td>
+                                    <td class="align-middle text-center ">
+                                        <div class="my-auto ">
+                                            <span class=" text-md ">{{ntp.moq}}</span>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-center ">
+                                        <div class="my-auto ">
+                                            <span class=" text-md ">{{ntp.ns_risp_richi}}</span>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-center ">
+                                        <div class="my-auto ">
+                                            <span class=" text-md ">{{ntp.note}}</span>
+                                        </div>
+                                    </td>
+                                    <td class=" text-center ">
+                                        <div class="text-center ">
+                                            <p class="mb-0 text-md text-uppercase font-weight-bold ">{{ntp.user_login_prev}}</p>
+                                        </div>
+                                    </td>
+
+                                    <td class="align-middle no-print ">
+
+                                        <a ng-click="deletepreventivo(ntp._id)"><i class="fa-regular fa-trash-can" style="padding-right: 8px; color: red; cursor: pointer;"></i></a>
+                                        <a ng-click="get_one_preventivo(ntp)" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i style="color: #0076b6cd;"  class="fa-solid fa-pen "></i></a>
+                                        <!-- <a ng-click="hyde_no_print(ntp)"><i style="cursor: pointer;">🖨️</i></a> -->
+
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="elem2" class="table-responsive rounded mt-2 " style="box-shadow: 2px 2px 4px 4px rgba(128, 128, 128, 0.377); ">
+
+                        <button ng-click="exportToExcelpreventivo()" class="btn btn-success text-uppercase px-5 m-3 no-print">report exel</button>
+
+                        <div class="m-3 no-print">
+                            <input type="text" class="form-control p-2" style="background-color: white;border: 1px solid rgba(128, 128, 128, 0.371);" name="" id="" aria-describedby="helpId" placeholder="Ricerca..." ng-model="myfilter1">
+                        </div>
+                        <table class="table align-items-center mb-0 " id="mytable">
+                            <thead class="text-center ">
+                                <tr class="text-center ">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                        Fornitore
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                        Costo Articolo</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                        Costo Stampa / Attrezzatura</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                        Moq</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                        Ns Risposta / Richieste</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                        Note</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                        Inserito da</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 no-print">
+                                        Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center">
+                                <tr ng-repeat="ntp in preventivi_to_print" ng-class="{'col_red': ntp.stato == 0 , 'col_green': ntp.stato == 1}">
+                                    <td>
+                                        <div class=" text-center ">
+                                            <p class="mb-0 text-md text-uppercase font-weight-bold ">{{ntp.fornitore}}</p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="text-md font-weight-normal mb-0 ">{{ntp.cost_art}}</p>
+                                    </td>
+
+                                    <td>
+                                        <p class="text-md font-weight-normal mb-0 ">{{ntp.cost_stamp_attrez}}</p>
+                                    </td>
+                                    <td class="align-middle text-center ">
+                                        <div class="my-auto ">
+                                            <span class=" text-md ">{{ntp.moq}}</span>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-center ">
+                                        <div class="my-auto ">
+                                            <span class=" text-md ">{{ntp.ns_risp_richi}}</span>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-center ">
+                                        <div class="my-auto ">
+                                            <span class=" text-md ">{{ntp.note}}</span>
+                                        </div>
+                                    </td>
+                                    <td class=" text-center ">
+                                        <div class="text-center ">
+                                            <p class="mb-0 text-md text-uppercase font-weight-bold ">{{ntp.user_login_prev}}</p>
+                                        </div>
+                                    </td>
+
+                                    <td class="align-middle no-print ">
+
+                                        <a ng-click="deletepreventivo(ntp._id)"><i class="fa-regular fa-trash-can" style="padding-right: 8px; color: red; cursor: pointer;"></i></a>
+                                        <a ng-click="get_one_preventivo(ntp)" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"><i style="color: #0076b6cd;"  class="fa-solid fa-pen "></i></a>
+                                        <!-- <a ng-click="hyde_no_print(ntp)"><i style="cursor: pointer;">🖨️</i></a> -->
+
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="elem3" ng-show="vws == 'Indagini'" class="table-responsive rounded " style="box-shadow: 2px 2px 4px 4px rgba(128, 128, 128, 0.377); ">
+
+                        <button ng-click="exportToExcelindagine() " class="btn btn-success text-uppercase px-5 m-3 no-print ">report exel</button>
+                        <div class="m-3 no-print ">
+                            <input type="text " class="form-control p-2 " style="background-color: white;border: 1px solid rgba(128, 128, 128, 0.371); " name=" " id=" " aria-describedby="helpId " placeholder="Ricerca... " ng-model="myfilter ">
+                        </div>
+                        <table class="table align-items-center mb-0 " id="mytable2">
+                            <thead class="text-center ">
+                                <tr class="text-center ">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Data D'Inserimento </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Nome Cliente </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Quantità Annua
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                        Prezzo Target</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                        Agente</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                        Note</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                        Inserito Da</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 no-print ">
+                                        Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody class="text-center ">
+                                <tr ng-repeat="inda in db_indagine_tab | filter:myfilter ">
+                                    <td>
+                                        <p class="text-sm font-weight-normal mb-0 ">{{inda.data_inserimento}}</p>
+                                    </td>
+                                    <td>
+                                        <div class="text-center ">
+                                            <h4 class="mb-0 text-md text-uppercase ">{{inda.nome}}</h4>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="text-sm font-weight-normal mb-0 ">{{inda.qta_annua}}</p>
+                                    </td>
+                                    <td class="align-middle text-center ">
+                                        <div class="my-auto ">
+                                            <span class=" text-sm ">{{inda.prz_target}}</span>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-center ">
+                                        <div class="my-auto ">
+                                            <span class=" text-sm ">{{inda.agente}}</span>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-center ">
+                                        <div class="my-auto ">
+                                            <span class=" text-sm ">{{inda.note}}</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-dot ">
+                                            <i class="my-auto "></i>
+                                            <span class="text-dark text-md ">{{inda.user_login}}</span>
+                                        </span>
+                                    </td>
+
+
+                                    <td class="align-middle no-print ">
+
+                                        <a ng-click="deleteindagine(inda._id)"><i class="fa-regular fa-trash-can "
+                                                style="color: red; padding-right: 8px; cursor: pointer;"></i></a>
+                                        <a ng-click="get_one_indagine(inda)" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal3"><i class="fa-solid fa-pen "
+                                                style="color: #0076b6b2;"></i></a>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div ng-show="vws == 'Note'  && (db_note_articolo | filter : { 'tipo': 'Generica' } : true).length >0" class="table-responsive rounded no-print " style="box-shadow: 2px 2px 4px 4px rgba(128, 128, 128, 0.377); ">
+
+                        <div class="m-3 no-print ">
+                            <input type="text" class="form-control p-2" style="background-color: white;border: 1px solid rgba(128, 128, 128, 0.371); " aria-describedby="helpId" placeholder="Ricerca..." ng-model="myfilterF">
+                        </div>
+                        <table class="table align-items-center mb-0 ">
+                            <thead class="text-center ">
+                                <tr class="text-center ">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Data Inserimento </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Note
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                        Inserita Da</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                        Tipo Nota</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 no-print ">
+                                        Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody class="text-center ">
+                                <tr ng-repeat="ntt in db_note_articolo | filter :{ 'tipo': 'Generica'} | filter : myfilterF">
+
+                                    <td>
+                                        <p class="text-md font-weight-normal mb-0 ">{{ntt.insert_date}}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-sm font-weight-normal mb-0 ">{{ntt.note}}</p>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-dot ">
+                                            <i class="my-auto "></i>
+                                            <span class="text-dark text-md ">{{ntt.login_user_acttion}}</span>
+                                        </span>
+                                    </td>
+                                    <td class="align-middle text-center ">
+                                        <div class="my-auto ">
+                                            <span class=" text-md text-dark badge badge-dot ">{{ntt.tipo}}</span>
+                                        </div>
+                                    </td>
+
+                                    <td class="align-middle no-print ">
+
+                                        <a ng-click="deletecomment(ntt._id)"><i class="fa-regular fa-trash-can "
+                                                style="color: red; padding-right: 8px;cursor: pointer;"></i></a>
+                                        <a ng-click="get_one_note(ntt)" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2"><i class="fa-solid fa-pen "
+                                                style="color: #0076b6b2;"></i></a>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <div ng-show="vws == 'Tecnica' && (db_note_articolo | filter : { 'tipo': 'Tecnica' } : true).length >0" class="table-responsive rounded no-print" style="box-shadow: 2px 2px 4px 4px rgba(128, 128, 128, 0.377); ">
+
+
+                        <table class="table align-items-center mb-0 ">
+                            <thead class="text-center ">
+                                <tr class="text-center ">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Data Inserimento </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Note
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                        Inserito Da</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                        Tipo di Nota</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 no-print ">
+                                        Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody class="text-center ">
+                                <tr ng-repeat="tech in db_note_articolo | filter :{ 'tipo': 'Tecnica'} ">
+                                    <td>
+                                        <p class="text-md font-weight-normal mb-0 ">{{tech.insert_date}}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-sm font-weight-normal mb-0 ">{{tech.note}}</p>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-dot ">
+                                            <i class="my-auto "></i>
+                                            <span class="text-dark text-md ">{{tech.login_user_acttion}}</span>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-dot ">
+                                            <i class="my-auto "></i>
+                                            <span class="text-dark text-md ">{{tech.tipo}}</span>
+                                        </span>
+                                    </td>
+
+
+
+                                    <td class="align-middle no-print ">
+
+                                        <a ng-click="delete_nota_tech(tech._id)"><i class="fa-regular fa-trash-can "
+                                            style="color: red; padding-right: 8px; "></i></a>
+                                        <a ng-click="get_one_note(tech)" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2"><i class="fa-solid fa-pen "
+                                            style="color: #0076b6b2;"></i></a>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <div ng-show="vws=='Tutte_Note'" class="table-responsive rounded no-print" style="box-shadow: 2px 2px 4px 4px rgba(128, 128, 128, 0.377);">
+                        <div class="m-3 no-print ">
+                            <input type="text" class="form-control p-2" style="background-color: white;border: 1px solid rgba(128, 128, 128, 0.371);" aria-describedby="helpId" placeholder="Ricerca... " ng-model="myfilterN">
+                        </div>
+                        <table class="table align-items-center mb-0 ">
+                            <thead class="text-center ">
+                                <tr class="text-center ">
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Data Inserimento </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Note
+                                    </th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                        Inserito Da</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                        Tipo di Nota</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                        Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody class="text-center ">
+                                <tr ng-repeat="ntt in db_note_articolo | filter:myfilterN ">
+                                    <td>
+                                        <p class="text-md font-weight-normal mb-0 ">{{ntt.insert_date}}</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-sm font-weight-normal mb-0 ">{{ntt.note}}</p>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-dot ">
+                                            <i class="my-auto "></i>
+                                            <span class="text-dark text-md ">{{ntt.login_user_acttion}}</span>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-dot ">
+                                            <i class="my-auto "></i>
+                                            <span class="text-dark text-md ">{{ntt.tipo}}</span>
+                                        </span>
+                                    </td>
+
+                                    <td class="align-middle ">
+
+                                        <a ng-click="delete_nota_tech(ntt._id)"><i class="fa-regular fa-trash-can "
+                                            style="color: red; padding-right: 8px; cursor: pointer; "></i></a>
+                                        <a ng-click="get_one_total_nota(ntt)" type="button " data-bs-toggle="modal" data-bs-target="#exampleModal2"><i class="fa-solid fa-pen "
+                                            style="color: #0076b6b2; "></i></a>
+                                    </td>
+
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal preventivo -->
+<div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title font-weight-bold text-uppercase" id="exampleModalLabel">Inserisci Preventivo 🗂️</h5>
+                <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body ">
+
+                <form>
+
+                    <p ng-show="preventivo==true" class="text-secondary text-capitalize font-weight-bolder">Valutazione Preventivo</p>
+                    <div ng-show="preventivo==true" class="my-3 ">
+                        <button class="btn btn-success text-uppercase px-4 me-3 " ng-click="update_preventivo_good()">Accetta Preventivo</button>
+                        <button class="btn btn-danger text-uppercase px-4 " ng-click="update_preventivo_bad()">Rifiuta Preventivo</button>
+                        <button class="btn btn-info text-uppercase px-4 " ng-click="update_preventivo_black()">Rivaluta Preventivo</button>
+                    </div>
+
+                    <p class="text-secondary text-capitalize font-weight-bolder">fornitore</p>
+                    <div class="input-group input-group-outline my-3">
+                        <input type="text" class="form-control text-uppercase " ng-model="db_preventivo.fornitore">
+                    </div>
+
+                    <p class="text-secondary text-capitalize font-weight-bolder mt-3 ">costo articolo</p>
+                    <div class="input-group input-group-outline my-3 ">
+                        <input type="text" class="form-control " ng-model="db_preventivo.cost_art">
+                    </div>
+
+                    <p class="text-secondary text-capitalize font-weight-bolder mt-3 ">costo stampo / attrezzatura</p>
+                    <div class="input-group input-group-outline my-3 ">
+                        <input type="text" class="form-control " ng-model="db_preventivo.cost_stamp_attrez">
+                    </div>
+
+                    <p class="text-secondary text-capitalize font-weight-bolder mt-3 ">Moq</p>
+                    <div class="input-group input-group-outline my-3 ">
+                        <input type="number" class="form-control " ng-model="db_preventivo.moq">
+                    </div>
+
+                    <p class="text-secondary text-capitalize font-weight-bolder mt-3 ">Ns risposte / richieste</p>
+                    <div class="input-group input-group-outline my-3 ">
+                        <input type="text" class="form-control " ng-model="db_preventivo.ns_risp_richi">
+                    </div>
+
+                    <p class="text-secondary text-capitalize font-weight-bolder mt-3 ">Note</p>
+                    <div class="form-floating">
+                        <textarea class="form-control p-3" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px; border: 1px solid rgba(128, 128, 128, 0.364); " ng-model="db_preventivo.note"></textarea>
+                    </div>
+
+                    <button ng-show="insert_prev==true" ng-click="add_preventivo() " type="submit" class="btn bg-gradient-success mt-4 float-end px-5 ">Salva</button>
+                    <button ng-show="modify_prev==true" ng-click="update_preventivo() " type="submit" class="btn bg-gradient-info mt-4 float-end px-5 ">Modifica Preventivo</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal RICERCA INDAGINE-->
+<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title font-weight-bold text-uppercase" id="exampleModalLabel">Inserimento Indagine 📋 </h5>
+                <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body ">
+                <form>
+                    <p class="text-secondary text-capitalize font-weight-bolder ">Nome Cliente</p>
+                    <div class="input-group input-group-outline my-3">
+                        <input type="text" class="form-control text-uppercase " ng-model="db_indagine.nome">
+                    </div>
+
+                    <p class="text-secondary text-capitalize font-weight-bolder mt-3 ">Quantità Annua</p>
+                    <div class="input-group input-group-outline my-3 ">
+                        <input type="number" class="form-control " ng-model="db_indagine.qta_annua">
+                    </div>
+
+                    <p class="text-secondary text-capitalize font-weight-bolder mt-3 ">Prezzo Target</p>
+                    <div class="input-group input-group-outline my-3 ">
+                        <input type="number" class="form-control " ng-model="db_indagine.prz_target">
+                    </div>
+
+                    <p class="text-secondary text-capitalize font-weight-bolder mt-3 ">Agente</p>
+                    <div class="input-group input-group-outline my-3 ">
+                        <input type="text" class="form-control " ng-model="db_indagine.agente">
+                    </div>
+
+                    <p class="text-secondary text-capitalize font-weight-bolder mt-3">Note</p>
+                    <div class="form-floating">
+                        <textarea class="form-control p-3" id="floatingTextarea2" style="height: 100px; border: 1px solid rgba(128, 128, 128, 0.364);" ng-model="db_indagine.note"></textarea>
+                    </div>
+
+                    <hr>
+
+                </form>
+
+                <button ng-show="insert==true" ng-click="add_indagine(db_indagine)" type="submit" class="btn bg-gradient-success mt-1 float-end px-5">Salva</button>
+                <button ng-show="modify==true" ng-click="update_indagine()" type="submit" class="btn bg-gradient-info mt-1 float-end px-5">Modifica Indagine</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal  NOTE -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Inserisci Nuova Nota 📒</h5>
+                <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body ">
+                <textarea class="form-control p-3" style="border: 1px solid rgba(128, 128, 128, 0.335); " rows="5" placeholder="Inserisci nuova nuota ..... " ng-model="db_note.note" spellcheck="false"></textarea>
+            </div>
+            <div class="modal-body ">
+                <p class="text-secondary ">Seleziona il tipo di Nota</p>
+                <select class="form-select p-2 " ng-model="db_note.tipo" style="border: 1px solid rgba(128, 128, 128, 0.335); font-size: 17px; ">
+                    <option value="Generica">Generica</option>
+                    <option value="Tecnica">Tecnica</option>
+                  </select>
+            </div>
+
+
+
+            <div class="modal-footer ">
+                <button type="button" class="btn bg-gradient-secondary " data-bs-dismiss="modal">Chiudi</button>
+                <button type="button" class="btn bg-gradient-success " ng-show="insert_nota==true" ng-click="addnewgenericnote()">Aggiungi Nota</button>
+                <button type="button" class="btn bg-gradient-primary " ng-show="modify_nota==true" ng-click="update_nota()">Modifica Nota</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal change Stato -->
+<div class="modal fade " id="mymodal" tabindex="-1" role="dialog" aria-labelledby="mymodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered " role="document ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Cambio Stato 💱</h5>
+                <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <select class="form-select" ng-model="mynewstato">
+                    <option selected></option>
+                    <option value="Nuovo" class="text-center ">Nuovo</option>
+                    <option value="Acquisto Campione" class="text-center ">Acquisto Campione</option>
+                    <option value="Verifica Campione" class="text-center ">Verifica Campione</option>
+                    <option value="Richiesta Fattibilità" class="text-center ">Richiesta Fattibilità</option>
+                    <option value="Attesa Quotazione" class="text-center ">Attesa Quotazione</option>
+                    <option value="Valutazione Preventivo" class="text-center ">Valutazione Preventivo</option>
+                    <option value="Attesa Prototipo" class="text-center ">Attesa Prototipo</option>
+                    <option value="Verifica Tecnica Prototipo" class="text-center ">Verifica Tecnica Prototipo</option>
+                    <option value="Standby" class="text-center ">Standby</option>
+                    <option value="Archiviato" class="text-center ">Archiviato</option>
+                    <option value="Produzione" class="text-center ">Produzione</option>
+                </select>
+            </div>
+            <div class="modal-footer ">
+                <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Chiudi</button>
+                <button type="button" class="btn bg-gradient-primary" ng-click="updatestatus()">Salva Stato</button>
+            </div>
+        </div>
+    </div>
+</div>

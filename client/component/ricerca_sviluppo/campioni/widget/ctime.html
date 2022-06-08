@@ -1,0 +1,8 @@
+<h1>Timeline</h1>
+<ol ng-repeat="nt in db_note_articolo" ng-controller="articolo_Controller" class="timeline">
+    <li>
+        <p class="event-date">{{nt.insert_date}}</p>
+        <p class="event-description">{{nt.note}}</p>
+    </li>
+
+</ol>

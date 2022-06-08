@@ -1,0 +1,342 @@
+<style>
+    .rosso {
+        color: red;
+        font-size: large;
+        font-weight: bold;
+    }
+    
+    .verde {
+        color: #008000
+    }
+    
+    @media print {
+        .no-print {
+            display: none !important;
+        }
+    }
+</style>
+
+
+<div class="container-fluid ">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-12 mt-5 mt-md-0">
+            <div class="card card-nav-tabs">
+
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 text-center ">
+                    <div style="background-color: #3a7ca5; color: white;" class=" shadow-secondary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-uppercase ps-1" style="font-size: 30px;">Genera Kit </h6>
+                    </div>
+
+                    <select class="form-select mt-5 " style="border: 1px solid rgba(128, 128, 128, 0.385);" aria-label="Default select example" ng-model="selected">
+                        <option></option>
+                        <option class="text-center" ng-repeat="cod in kit" value="{{cod}}">
+                            {{cod}}
+
+                        </option>
+                    </select>
+                    <div class="input-group input-group-outline my-3">
+                        <input type="text" placeholder="Quantità" class="form-control" ng-model="qta">
+                    </div>
+
+                    <a name="" id="" class="btn bg-gradient-faded-info text-white my-3" style="padding-left: 150px; padding-right: 150px;" href="" role="button" ng-click="addtolist()" ng-show="qta">Aggiungi</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-12 mt-5 mb-2 mt-md-0" ng-show="mych.length >0">
+            <div class="card card-nav-tabs">
+
+                <div id="elem2" class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 text-center ">
+                    <div style="background-color: #3a7ca5; color: white;" class=" shadow-secondary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-uppercase ps-1" style="font-size: 30px;">Lista Kit </h6>
+                    </div>
+
+                    <div class="card my-4" style="box-shadow: 3px 3px 3px 3px rgba(128, 128, 128, 0.364);">
+                        <div class="table-responsive">
+                            <table class="table align-items-center mb-0">
+                                <thead class="text-center">
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7">
+                                            Codice</th>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">
+                                            Quantità</th>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">
+                                            Action</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="el in mych">
+
+
+
+
+                                        <td>
+                                            <p class=" font-weight-bold mb-0 text-sm">{{el.kit}}</p>
+                                        </td>
+                                        <td>
+                                            <p class=" font-weight-bold mb-0 text-md">{{el.qta}} <a href=""><i
+                                                        ng-click="sumone($index)" class="fa-solid fa-plus "
+                                                        style="color:aqua; font-size: 17px; margin-right: 8px; margin-left: 4px;"></i>
+
+                                                </a>
+                                                <a href=""><i ng-click="remone($index)" class="fa-solid fa-minus "
+                                                        style="color:red; font-size: 17px;"></i></a>
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <i class="fa-solid fa-trash-can" style="color: red;" ng-click="removeItem($index)"></i>
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+                <button type="button" class="btn bg-gradient-info float-end text-uppercase mt-1 " style="margin-left: 35px; margin-right: 35px;" ng-click="calculate()">Calcola</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="container-fluid mt-5 " ng-show="res.length > 0">
+    <div class="row justify-content-center">
+        <!--  BOX CONTEGGI -->
+        <div class="col-12 " id="printbox">
+            <div class="row ">
+
+                <div class="col-md-2 col-12 mt-5 mt-md-0 ">
+                    <div class="card card-nav-tabs">
+
+                        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 text-center ">
+                            <div style="background-color: #023e8a; color: white;" class=" shadow-secondary border-radius-lg pt-4 pb-3">
+                                <h6 class="text-white text-uppercase ps-1" style="font-size: 25px;">Articoli Totali</h6>
+                            </div>
+
+                            <h4 class="my-3" style="font-size: 30px;">{{res.length}}</h4>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2 col-12 mt-5 mt-md-0 ">
+                    <div class="card card-nav-tabs">
+
+                        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 text-center ">
+                            <div style="background-color: #023e8a; color: white;" class=" shadow-secondary border-radius-lg pt-4 pb-3">
+                                <h6 class="text-white text-uppercase ps-1" style="font-size: 25px;">Peso Totale</h6>
+                            </div>
+
+                            <h4 class="my-3" style="font-size: 30px;">{{tot_peso | number:4}} <span class="badge bg-gradient-warning">Kg</span> </h4>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-12 mt-md-0 text-center no-print">
+                    <button class="btn bg-gradient-faded-info text-uppercase text-white py-5" style="font-size: 23px; padding-left: 83px; padding-right: 83px;" ng-click=" print_element( 'elem', 'elem1','elem2') ">Stampa Tabelle</button>
+                </div>
+
+                <div class="col-md-4 col-12 mt-5 mt-md-0 ">
+
+                    <div class="card card-nav-tabs">
+
+                        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 text-center ">
+                            <div style="background-color: #0077b6; color: white;" class=" shadow-secondary border-radius-lg pt-4 pb-3">
+                                <h6 class="text-white text-uppercase ps-1" style="font-size: 25px;">Costo V Totale</h6>
+                            </div>
+                            <h4 class="my-3" style="font-size: 30px;">{{mytotvprice | number:2}} €</h4>
+                            <small ng-if="unonan == true">Attenzione ci sono degli articoli con prezzo 0</small>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+        <!--  FINE BOX CONTEGGI -->
+
+
+
+
+        <div class="row justify-content-center">
+
+
+            <!--  PRODOTTI DISPONIBILI -->
+            <div class=" col-12 col-md-6 mt-5 mb-5 ">
+                <div class="card card-nav-tabs ">
+
+                    <div class="card-header p-0 position-relative mt-n4 mx-2 z-index-2 text-center ">
+                        <div style="background-color: #0077b6; color: white; " class=" shadow-secondary border-radius-lg pt-4 pb-3 ">
+                            <h6 class="text-white text-uppercase ps-1 " style="font-size: 25px; ">Prodotti Disponibili
+                            </h6>
+                        </div>
+                        <div id="elem1" class="card my-4 " style="box-shadow: 2px 2px 2px 2px rgba(128, 128, 128, 0.378); ">
+                            <div class="table-responsive p-0 ">
+                                <table class="table align-items-center mb-0 " style="box-shadow: 2px 2px 2px 2px rgba(128, 128, 128, 0.378);">
+                                    <thead class="text-center ">
+                                        <tr>
+                                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ">
+                                                Image</th>
+                                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ">
+                                                Articolo</th>
+                                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ">
+                                                QTA</th>
+                                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ">
+                                                DISP REALE</th>
+                                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ">
+                                                In ordine</th>
+                                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ">
+                                                Paese di Origine</th>
+                                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ">
+                                                Price</th>
+                                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ">
+                                                Peso</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-center ">
+                                        <tr ng-repeat="el in res " ng-class="el.rgia < el.qta? 'rosso' : 'verde' ">
+                                            <td>
+                                                <div class="d-flex px-3 ">
+                                                    <div>
+                                                        <img src="{{el.img}} " class="avatar avatar-sm rounded-circle me-2 ">
+                                                    </div>
+                                                </div>
+                                            </td>
+
+                                            <td>
+                                                <p class="text-xs font-weight-normal mb-0 text-uppercase ">
+                                                    {{el.articolo}}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-xs font-weight-normal mb-0 ">{{el.qta}}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-xs font-weight-normal mb-0 ">{{el.rgia}}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-xs font-weight-normal mb-0 ">
+                                                    {{el.ordinati}}<br>{{el.fornitore}}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-xs font-weight-normal mb-0 ">
+                                                    {{el.p_origine}}
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p class="text-xs font-weight-normal mb-0 ">{{el.vprice *el.qta | number:2 }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-xs font-weight-normal mb-0 ">{{el.peso *el.qta | number:4 }}</p>
+                                            </td>
+                                        </tr>
+
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--  FINE  PRODOTTI DISPONIBILI -->
+
+
+            <!--  PRODOTTI NON DISPONIBILI -->
+            <div class="col-12 col-md-6 mt-5 mb-5 text-center ">
+
+                <div class="card card-nav-tabs mb-5 ">
+
+                    <div class="card-header p-0 position-relative mt-n4 mx-2 z-index-2 text-center ">
+                        <div style="background-color: #007ea7; color: white; " class=" shadow-secondary border-radius-lg pt-4 pb-3 ">
+                            <h6 class="text-white text-uppercase ps-1 " style="font-size: 15px; ">Articoli Mancanti per realizzazioni Kit selezionati Considerando gli ordini al fornitore</h6>
+                        </div>
+
+                        <div id="elem" class="card my-4 " style="box-shadow: 2px 2px 2px 2px rgba(68, 128, 128, 0.378); ">
+                            <div class="table-responsive p-0 ">
+                                <table class="table align-items-center mb-0 " style="box-shadow: 2px 2px 2px 2px rgba(128, 128, 128, 0.378);">
+                                    <thead class="text-center ">
+                                        <tr>
+                                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ">
+                                                Image</th>
+                                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ">
+                                                Articolo</th>
+                                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ">
+                                                QTA</th>
+                                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ">
+                                                DISP REALE</th>
+                                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ">
+                                                In ordine</th>
+                                            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 no-print">
+                                                Pz Mancanti</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-center ">
+                                        <tr ng-repeat="el in db_mancanti " ng-class="el.rgia < el.qta? 'rosso' : 'verde' " ng-show="el.reo <=0 ">
+                                            <td>
+                                                <div class="d-flex px-3 ">
+                                                    <div>
+                                                        <img src="{{el.img}} " class="avatar avatar-sm rounded-circle me-2 ">
+                                                    </div>
+                                                </div>
+                                            </td>
+
+                                            <td>
+                                                <p class="text-xs font-weight-normal mb-0 text-uppercase ">
+                                                    {{el.articolo}}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-xs font-weight-normal mb-0 ">{{el.qta}}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-xs font-weight-normal mb-0 ">{{el.rgia}}</p>
+                                            </td>
+                                            <td>
+                                                <p class="text-xs font-weight-normal mb-0 ">
+                                                    {{el.ordinati}}<br>{{el.fornitore}}</p>
+                                            </td>
+                                            <td class="no-print">
+                                                <p class="text-xs font-weight-normal mb-0 ">{{el.reo * -1}}</p>
+                                            </td>
+
+
+                                        </tr>
+
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!--  FINE PRODOTTI NON DISPONIBILI -->
+
+
+
+
+        </div>
+
+
+
+
+
+    </div>
+
+
+</div>
+</div>

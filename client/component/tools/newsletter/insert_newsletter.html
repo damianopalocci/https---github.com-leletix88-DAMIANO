@@ -1,0 +1,202 @@
+<div class="alert alert-success" style="color: white;" role="alert" ng-show="msg === 0">
+    Email Inviata Correttamente <i class="fas fa-check-square"></i>
+</div>
+<div class="alert alert-warning" style="color: white;" role="alert" ng-show="tsend === 1">
+    Invio Email in corso ...<i class="fas fa-paper-plane"></i>
+</div>
+<div class="alert alert-danger" style="color: white;" role="alert" ng-show="msg === 2">
+    Email non Inviata <i class="fas fa-times "></i>
+</div>
+
+
+<div class="container-fluid" ng-show="genereted == false">
+    <div class="row no-gutters">
+        <div class="col-md-6 col-12 mt-3 mt-md-0">
+
+
+            <div class="card card-nav-tabs">
+
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 text-center ">
+                    <div style="background-color: #33415C; color: white;"
+                        class=" shadow-secondary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-uppercase ps-3" style="font-size: 25px;">Generatore NewsLetters</h6>
+                    </div>
+                </div>
+
+                <form class="p-3 mt-4 pb-0">
+
+                    <div class="form-group">
+                        <label class="text-uppercase font-weight-bold" for="codice"
+                            style="font-size: 16px;">Codice</label>
+                        <input type="text" class="form-control mb-3 p-2 text-uppercase" id="codice" placeholder="codice"
+                            ng-model="codice" style=" border: 1px solid rgba(128, 128, 128, 0.438);">
+                    </div>
+
+                    <br>
+
+                </form>
+
+                <button type="submit " ng-click="cerca(codice)" class="btn text-uppercase float-end mx-4 "
+                    style="background-color: #33415C; color: white; font-size: 15px; ">cerca</button>
+            </div>
+        </div>
+        <div class="col-md-6 col-12 mt-4 mt-md-0 ">
+
+            <div class="alert alert-danger" style="color: white;" role="alert"
+                ng-show="info_art[0]['descrizione'] === ''">
+
+                Nessun Articolo Trovato <i class="fa-solid fa-face-frown" style="margin-left: 8px;"></i>
+
+            </div>
+
+
+            <div class="card " ng-show="info_art[0][ 'descrizione'] ">
+
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 text-center ">
+                    <div style="background-color: #a4161a; color: white; "
+                        class=" shadow-secondary border-radius-lg pt-4 pb-3 ">
+                        <h6 class="text-white text-uppercase ps-3 " style="font-size: 25px; ">codice prodotto {{codice}}
+                        </h6>
+                    </div>
+                </div>
+
+                <div class="row no-gutters ">
+                    <div class="col-md-6 col-12 text-center ">
+                        <img class=" mt-5 img-fluid " width="200px " src="{{info_art[0].fname}} "
+                            alt="immagine_prodotto ">
+                    </div>
+                    <div class="col-md-6 col-12 my-2 border-start-md text-center text-md-start ">
+
+                        <h3 style="font-size: 18px; " class="text-uppercase ">descrizione </h3>
+                        <p class="mb-1 " style="font-size: 16.5px; ">{{info_art[0].descrweb}}</p>
+                        <h3 style="font-size: 18px; " class="text-uppercase ">marca</h3>
+                        <p class="mb-1 " style="font-size: 16.5px; ">{{info_art[0].marca}}</p>
+                        <h3 style="font-size: 18px; " class="text-uppercase mt-4 ">codice originale </h3>
+                        <p class="mb-1 " style="font-size: 16.5px; ">{{info_art[0].codori}}</p>
+
+                    </div>
+                </div>
+                <button type="button " ng-click="inserisci(info_art[0],codice)" ng-show="tsend !=1 "
+                    class="btn mx-4 mt-1 mb-3 text-uppercase "
+                    style="background-color: #a4161a; color: white; font-size: 15px; ">Inserisci</button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="container-fluid mt-5" ng-show=" lista_news.length > 0 && loading!=false">
+
+    <div class="row no-gutters justify-content-center">
+
+
+        <div class="col-12 text-center">
+
+            <button class="btn mx-3 text-center" ng-click="genera()"
+                style="background-color: rgba(128, 128, 128, 0.481); padding-left: 50px; padding-right: 50px;"> <img
+                    width="23px" src="../component/tools/newsletter/icon_flag/france.png"
+                    alt="immagine lingue"></button>
+            <button class="btn mx-3 text-center" ng-click="genera()"
+                style="background-color: rgba(128, 128, 128, 0.481); padding-left: 50px; padding-right: 50px;"> <img
+                    width="23px" src="../component/tools/newsletter/icon_flag/germany.png"
+                    alt="immagine lingue"></button>
+            <button class="btn mx-3 text-center" ng-click="genera()"
+                style="background-color: rgba(128, 128, 128, 0.481); padding-left: 50px; padding-right: 50px;"> <img
+                    width="23px" src="../component/tools/newsletter/icon_flag/italy.png" alt="immagine lingue"></button>
+            <button class="btn mx-3 text-center" ng-click="genera()"
+                style="background-color: rgba(128, 128, 128, 0.481); padding-left: 50px; padding-right: 50px;"> <img
+                    width="23px" src="../component/tools/newsletter/icon_flag/russia.png"
+                    alt="immagine lingue"></button>
+            <button class="btn mx-3 text-center" ng-click="genera()"
+                style="background-color: rgba(128, 128, 128, 0.481); padding-left: 50px; padding-right: 50px;"> <img
+                    width="23px" src="../component/tools/newsletter/icon_flag/spain.png" alt="immagine lingue"></button>
+            <button class="btn mx-3 text-center" ng-click="genera()"
+                style="background-color: rgba(128, 128, 128, 0.481); padding-left: 50px; padding-right: 50px;"> <img
+                    width="23px" src="../component/tools/newsletter/icon_flag/united-kingdom.png"
+                    alt="immagine lingue"></button>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+<div class="container-fluid my-4" ng-show="loading!=true">
+    <div class="row no-gutters justify-content-center " ng-show="lista_news.length > 0">
+        <div class="col-12 col-md-12">
+            <div class="card card-frame ">
+                <div class="card-body ">
+
+
+                    <div class="card ">
+                        <div class="table-responsive ">
+                            <table class="table align-items-center mb-0 ">
+                                <thead>
+                                    <tr>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                            Image</th>
+                                        <th
+                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2 ">
+                                            Codice</th>
+                                        <th
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                            Descrizione</th>
+                                        <th
+                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">
+                                            Codice Originale</th>
+                                        <th class="text-secondary opacity-7 "></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="art in lista_news track by $index">
+                                        <td>
+                                            <div class="d-flex px-2 py-1 ">
+                                                <div class=" ">
+                                                    <img src="{{art.fname}}"
+                                                        class=" text-center img-fluid avatar avatar-sm me-3 ">
+                                                </div>
+
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <p class="text-xs font-weight-bold mb-0 text-uppercase ">{{art.codice}}</p>
+                                        </td>
+                                        <td class="align-middle text-center ">
+                                            <span
+                                                class="text-secondary text-xs font-weight-normal ">{{art.descrweb}}</span>
+                                        </td>
+                                        <td class="align-middle text-center text-sm ">
+                                            <span
+                                                class="text-secondary text-xs font-weight-normal ">{{art.codori}}</span>
+                                        </td>
+
+                                        <td class="align-middle ">
+                                            <a style="cursor: pointer; color: red;" ng-click="remove($index)"> <i
+                                                    class="fa-solid fa-xmark "></i></a>
+                                        </td>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div ng-show="loading==true">
+    <h1>Generazione del template in corso ...</h1>
+
+</div>

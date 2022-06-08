@@ -1,0 +1,163 @@
+<div class="container-fluid">
+    <div class="row no-gutters">
+        <div class="col-12">
+
+            <button data-bs-toggle="modal" data-bs-target="#exampleModal" style="float: right !important; padding-left: 100px; padding-right: 100px;" type="submit" class="btn bg-gradient-success mt-1mt-4 me-3">Aggiungi Lavorazione</button>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+
+    <!--     <div class="row no-gutters justify-content-center">
+
+    </div> -->
+
+    <div class="row no-gutters justify-content-center mt-5 mb-2">
+        <div class=" col-12 col-md-6">
+
+            <div class="card card-frame">
+
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 text-center ">
+                    <div style="background-color: #218278; color: white;" class=" shadow-secondary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-uppercase ps-3" style="font-size: 30px;"> 📦 Info {{db_principale.articolo}}📦</h6>
+                    </div>
+                </div>
+                <div class="card  m-4 " style="box-shadow: 5px 5px 5px 5px rgba(128, 128, 128, 0.296);">
+
+
+                    <div class="row no-gutters ">
+                        <div class="col-md-4 col-12 text-center ">
+                            <img class=" my-3 img-fluid rounded-3" width="200px " ng-src="http://192.168.1.14/Content/attachments/{{db_principale.immagine}}" alt="immagine_prodotto ">
+                        </div>
+                        <div class="col-md-8 col-12 my-2 border-start-md text-center text-md-start ">
+                            <div class="row no-gutters ">
+                                <div class="col-md-7 col-12 my-2 border-start-md text-center text-md-start ">
+
+
+                                    <h3 style="font-size: 18px; " class="text-uppercase mt-3">Descrizione</h3>
+                                    <p class="mb-1 " style="font-size: 16.5px; ">{{db_principale.descrizione}}</p>
+                                    <h3 style="font-size: 18px; " class="text-uppercase ">Marca</h3>
+                                    <p class="mb-1 " style="font-size: 16.5px; ">{{db_principale.marca}}</p>
+                                    <h3 style="font-size: 18px; " class="text-uppercase mt-3">Codice Originale</h3>
+                                    <p class="mb-1 " style="font-size: 16.5px; ">{{db_principale.codice_ori}}</p>
+
+                                </div>
+                                <!--     <div class="col-md-5 col-12 my-2 text-center text-md-start ">
+                                </div> -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="col-12 col-md-6">
+
+
+            <div class="card mb-5">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 text-center ">
+                    <div style="background-color: #db7c26; color: white;" class=" shadow-secondary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-uppercase ps-3" style="font-size: 35px;">Tipo di Lavorazione</h6>
+                    </div>
+                </div>
+                <div class="m-3">
+
+                    <input type="text" class="form-control p-2" style="background-color: white;border: 1px solid rgba(128, 128, 128, 0.371);" name="" id="" aria-describedby="helpId" placeholder="Ricerca..." ng-model="myfilter">
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped-columns align-items-center mb-0">
+                        <thead class="text_center">
+                            <tr>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 text-center">Tipo di Lavorazione</th>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 text-center">Descrizione</th>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 text-center">Note</th>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 text-center">Operatore/ Operatori</th>
+                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text_center">
+                            <tr>
+                                <!--  ng-repeat="el in all_code | filter : myfilter" -->
+
+
+                                <td class="text-center">
+                                    <a href="#!/officina/lavorazione/id/id" style="cursor: pointer;"><span class="text-secondary text-md" style="font-weight: bold !important;">advav</span>
+                                    </a>
+                                </td>
+                                <td class="align-middle text-center text-sm">
+                                    <a href="#" style="cursor: pointer;"><span class="text-secondary text-md" style="font-weight: bold !important;">dvzxvdzv</span>
+                                </a>
+                                </td>
+                                <td class="align-middle text-center text-sm">
+                                    <span class="text-secondary text-md font-weight-normal">dsvsdzxcvsd</span>
+                                </td>
+                                <td class="align-middle text-center text-sm">
+                                    <span class="text-secondary text-md font-weight-normal">vgsdvsdzxvds</span>
+                                </td>
+                                <td class="align-middle text-center">
+
+                                    <i ng-click="" class="fa-solid fa-trash-can" style="margin: 8px; color: rgba(255, 0, 0, 0.842); cursor: pointer"></i>
+                                    <a ng-click=""><i class="fa-solid fa-pen" style="color: #023e8a"></i></a>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title font-weight-normal" id="exampleModalLabel">Lavorazione ⚒️</h5>
+                <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <p class="text-secondary text-capitalize font-weight-bolder ">Tipo Lavorazione
+                    </p>
+                    <div class="input-group input-group-outline my-3">
+                        <input type="text" class="form-control text-center" ng-model="">
+                    </div>
+                    <!-- ng-show="insert == true" -->
+                    <p class="text-secondary text-capitalize font-weight-bolder mt-3 ">Descrizione </p>
+                    <div class="input-group input-group-outline my-3 ">
+                        <input type="text" class="form-control text-center" ng-model="">
+                    </div>
+
+                    <p class="text-secondary text-capitalize font-weight-bolder mt-3 ">Note</p>
+                    <div class="form-floating">
+                        <textarea style="border: 1px solid rgba(128, 128, 128, 0.305);" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                        <label for="floatingTextarea"></label>
+                    </div>
+
+                    <p class="text-secondary text-capitalize font-weight-bolder mt-3 ">Operatori / Operatore </p>
+                    <div class="input-group input-group-outline my-3 ">
+                        <input type="text" class="form-control text-center" ng-model="">
+                    </div>
+
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn bg-gradient-primary">Aggiungi</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,172 @@
+<style>
+    @media print {
+        .hidden-print {
+            display: none !important;
+        }
+        .paddingprint {
+            padding: 10px;
+            box-shadow: none !important;
+            border: 0px white !important;
+        }
+    }
+</style>
+
+
+
+<div class="container-fluid hidden-print">
+    <div class="row no-gutters">
+        <div class="col-md-6 col-12 mt-3 mt-md-0">
+
+
+            <div class="card card-nav-tabs mb-1">
+
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 text-center ">
+                    <div style="background-color: #006d77; color: white;" class=" shadow-secondary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-uppercase ps-3" style="font-size: 25px;">Nuovo Ordine</h6>
+                    </div>
+                </div>
+
+                <form class="p-3 mt-4 pb-0">
+
+                    <div class="form-group">
+                        <label class="text-uppercase font-weight-bold" for="ordine" style="font-size: 16px;">numero di
+                            ordine</label>
+                        <input type="text" class="form-control mb-3 p-2 text-uppercase" id="ordine" placeholder="ordine" ng-model="ordine" style=" border: 1px solid rgba(128, 128, 128, 0.438);" ng-change="reset()">
+                    </div>
+
+                    <br>
+
+                </form>
+
+                <button type="submit " ng-click="find_ordine(ordine)" class="btn text-uppercase float-end mx-4 " style="background-color: #006d77; color: white; font-size: 15px; ">cerca</button>
+            </div>
+        </div>
+        <div class="col-md-6 col-12 mt-5 mt-md-0" ng-show="selordini.length >0">
+
+
+            <div class="card card-nav-tabs">
+
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 text-center ">
+                    <div style="background-color: #006d77; color: white;" class=" shadow-secondary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-uppercase ps-3" style="font-size: 25px;">Lista Ordini</h6>
+                    </div>
+
+                    <div class="card my-4" style="box-shadow: 3px 3px 3px 3px rgba(128, 128, 128, 0.316);">
+                        <div class="table-responsive">
+                            <table class="table align-items-center mb-0">
+                                <thead class="text-center">
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7">ID
+                                        </th>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ps-2">
+                                            Cliente</th>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ps-2">
+                                            Anno</th>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ps-2">
+                                            Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="el in selordini">
+                                        <td>
+                                            <p class="text-xs font-weight-normal mb-0">{{el.id}}</p>
+
+                                        </td>
+                                        <td>
+                                            <p class="text-xs font-weight-normal mb-0">{{el.cliente}}</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-xs font-weight-normal mb-0">{{el.anno}}</p>
+                                        </td>
+                                        <td class="align-middle text-center">
+
+                                            <a class="badge badge-pill badge-lg bg-gradient-success" style="cursor: pointer;" ng-click="generaqrcode($index)">Genera
+                                                QR_Code</a>
+
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid ">
+    <div class="row justify-content-center mx-4">
+
+        <input class="hidden-print btn bg-gradient-success text-uppercase mt-5 " style="font-size: 16px;" type='button' id='btn' value='Print' onclick=" window.print()" ng-show="generate==true">
+    </div>
+</div>
+
+
+
+<div class="card card-frame mb-5 mt-3 mx-5 paddingprint" style="border-radius: 0px; " ng-show="generate == true">
+    <div class="card-body">
+
+        <div class="container" ng-if="selordini.length>0">
+
+            <div class="row ">
+
+                <div class="col-sm-4">
+
+                    <table class="table bordered table-responsive">
+                        <tr>
+                            <td class="text-uppercase font-weight-bold">Cliente :</td>
+                            <td style="font-size: 18px;">{{selordini[selectedidex]['cliente']}}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-uppercase font-weight-bold">Numero Ordine :</td>
+                            <td style="font-size: 18px;">{{selordini[selectedidex]['numero']}}</td>
+                        </tr>
+                    </table>
+                </div>
+
+
+            </div>
+            <div class="col-sm-12" ng-show="generate == true" id='DivIdToPrint'>
+
+
+
+
+
+
+
+
+                <div id="qrcode" id="DivIdToPrint" class="mt-4">
+                    <h5>In preparazione</h5>
+
+                </div>
+
+                <div id="qrcode1" class="mt-5">
+                    <h5>Packaging</h5>
+
+                </div>
+
+                <div id="qrcode2" class="mt-5">
+                    <h5>Attesa Spedizione</h5>
+                </div>
+
+                <div id="qrcode3" class="mt-5 mb-4">
+
+                    <h5>Spedito</h5>
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+    </div>
+</div>

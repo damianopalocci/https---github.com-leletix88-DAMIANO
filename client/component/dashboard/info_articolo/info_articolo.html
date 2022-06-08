@@ -1,0 +1,325 @@
+<style>
+    .text_white {
+        color: rgb(160, 160, 160);
+    }
+    
+    .text_white:hover {
+        color: white;
+    }
+</style>
+
+
+
+<div class="container-fluid mb-1">
+    <div class="row no-gutters justify-content-center">
+        <div class="col-{{col_cerca}} ">
+            <div class="card card-frame">
+                <div class="card-body">
+
+                    <div class="row no-gutters justify-content-center">
+                        <div class="col-12 col-md-8 ">
+                            <div class="input-group input-group-outline my-3">
+                                <input placeholder="codice" type="text" class="form-control text-uppercase" ng-model="codice">
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-2 ">
+                            <button class="btn btn-warning  px-5 my-3" ng-click="cerca(codice)">Cerca</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-show="message == true" style="color: white; font-size: 19px;" class="alert alert-danger m-5 text-center" role="alert">
+    <strong style="font-weight: bold; font-size: 20px;">Attezione!</strong> Articolo non Trovato ! 😢
+</div>
+
+
+<!-- <div class="container-fluid py-4  ng-scope">
+    <div class="row justify-content-center">
+        <lottie-player src="https://assets7.lottiefiles.com/packages/lf20_szlepvdh.json" background="transparent" speed="1" style="width: 500px; height: 500px;" loop="" autoplay=""></lottie-player>
+
+    </div>
+</div> -->
+
+<div ng-show="info_codice" class="container-fluid mt-5">
+    <div class="row no-gutters ">
+
+        <div class="col-12 col-md-7">
+            <div class="card card-frame">
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <img style="border-radius: 15px;" class="ps-2" width="360px" src="http://192.168.1.14/Content/attachments/{{info_codice.immagine}}" alt="immagine prodotto ">
+                        </div>
+                        <div class="col-12 col-md-6 text-lg-center ">
+
+                            <p> <b>Marca  </b> <br>{{info_codice.marca}}</p>
+                            <p> <b>Catagoria  </b> <br>{{info_codice.categoria}}</p>
+                            <p> <b>Codice Originale  </b> <br>{{info_codice.codice_ori}}</p>
+                            <p> <b>Descrizione </b> <br>{{info_codice.descrizione}}</p>
+
+                        </div>
+
+                        <br>
+                    </div>
+
+                    <div class="row justify-content-center mt-2 border-top ">
+                        <div class="col-{{col}} mt-4 ">
+                            <div class="card " style="box-shadow: 3px 3px 3px 3px rgba(128, 128, 128, 0.336); ">
+                                <div class="table-responsive ">
+                                    <table class="table align-items-center mb-0 ">
+                                        <thead class="text-center ">
+                                            <tr>
+                                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ">magazzino</th>
+                                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2 ">quantità</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-center ">
+                                            <tr ng-repeat=" el in info_magazz">
+
+                                                <td>
+                                                    <p class="text-xs font-weight-normal mb-0 ">{{el.descrizione}}</p>
+                                                </td>
+                                                <td>
+                                                    <span class="badge badge-dot me-4 ">
+                                                        <i class="bg-info "></i>
+                                                        <span class="text-dark text-xs ">{{el.giacenza}}</span>
+                                                    </span>
+                                                </td>
+                                            </tr>
+
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-5 mt-4 ">
+
+                            <div ng-if="info_pad_fig.length > 0" class="card " style="box-shadow: 3px 3px 3px 3px rgba(128, 128, 128, 0.336); ">
+                                <div class="table-responsive ">
+                                    <table class="table align-items-center mb-0 ">
+                                        <thead class="text-center ">
+                                            <tr>
+                                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ">padre</th>
+                                                <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ps-2 ">figlio</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-center ">
+                                            <tr ng-repeat=" el in info_pad_fig">
+
+                                                <td class="py-3 ">
+                                                    <p class="text-xs font-weight-normal mb-0 ">{{el.padre}}</p>
+                                                </td>
+                                                <td class="py-3 ">
+                                                    <p class="text-xs font-weight-normal mb-0 ">{{el.figlio}}</p>
+                                                </td>
+                                            </tr>
+
+
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <br>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-5 mt-4 mt-md-0 ">
+
+            <div class="row justify-content-center ">
+                <div class="col-12 mb-5 mt-2 mt-md-0 ">
+                    <div class="card ">
+                        <div class="card-header p-3 pt-2 ">
+                            <div class="icon icon-lg icon-shape bg-gradient-warning shadow-dark text-center border-radius-xl mt-n4 position-absolute ">
+                                <i class="fas fa-euro-sign "></i>
+                            </div>
+                            <div class="text-end pt-1 ">
+                                <p class=" mb-0 text-uppercase font-weight-bold " style="color: #023e8a; font-size: 22px;">{{cy}}</p>
+                                <h4 ng-if=" anno_corrente > 0" class="mb-0 text-uppercase ">{{anno_corrente | number:2}}</h4>
+                            </div>
+                        </div>
+                        <div class="card-footer p-3 ">
+                            <p class="mb-0 "><span class="text-success text-sm font-weight-bolder "></span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mb-5 ">
+                    <div class="card ">
+                        <div class="card-header p-3 pt-2 ">
+                            <div class="icon icon-lg icon-shape bg-gradient-danger shadow-dark text-center border-radius-xl mt-n4 position-absolute ">
+                                <i class="fas fa-euro-sign "></i>
+                            </div>
+                            <div class="text-end pt-1 ">
+                                <p class=" mb-0 text-uppercase font-weight-bold " style="color: #023e8a; font-size: 22px;">{{c1}}</p>
+                                <h4 ng-if=" anno_precedente > 0" class="mb-0 text-uppercase ">{{anno_precedente | number:2}}</h4>
+                            </div>
+                        </div>
+                        <div class="card-footer p-3 ">
+                            <p class="mb-0 "><span class="text-success text-sm font-weight-bolder "></span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 mb-5 ">
+                    <div class="card ">
+                        <div class="card-header p-3 pt-2 ">
+                            <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute ">
+                                <i class="fas fa-euro-sign "></i>
+                            </div>
+                            <div class="text-end pt-1 ">
+                                <p class=" mb-0 text-uppercase font-weight-bold " style="color: #023e8a; font-size: 22px;">{{c2}}</p>
+                                <h4 ng-if=" anno_mdue > 0" class="mb-0 text-uppercase ">{{anno_mdue | number:2}}</h4>
+                            </div>
+                        </div>
+                        <div class="card-footer p-3 ">
+                            <p class="mb-0 "><span class="text-success text-sm font-weight-bolder "></span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 ">
+                    <div class="card ">
+                        <div class="card-header p-3 pt-2 ">
+                            <div class="icon icon-lg icon-shape bg-gradient-success shadow-dark text-center border-radius-xl mt-n4 position-absolute ">
+                                <i class="fa-solid fa-circle-info"></i>
+                            </div>
+                            <div class="row justify-content-center mt-3 ">
+                                <div class="col-12 col-sm-6 col-md-12 col-lg-6 mt-2 ">
+                                    <div class="text-end ">
+                                        <p class=" mb-0 text-uppercase font-weight-bold " style="color: #023e8a; font-size: 16px; ">FORNITORE</p>
+                                        <p style="font-size: 19px; font-weight: bold; color: #344767; " class="mb-0 text-uppercase ">{{info_prezzo_base.nome_fornitore}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-12 col-lg-6 mt-2 ">
+                                    <div class="text-end ">
+                                        <p class=" mb-0 text-uppercase font-weight-bold " style="color: #023e8a; font-size: 16px; ">PREZZO BASE</p>
+                                        <p ng-if=" info_prezzo_base != []" style="font-size: 19px; font-weight: bold; color: #344767; " class="mb-0 text-uppercase ">{{info_prezzo_base.prezzo}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer p-1 ">
+                            <p class="mb-0 "><span class="text-success text-sm font-weight-bolder "></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+<div ng-show="info_codice" class="container-fluid mt-4 ">
+    <div class="row no-gutters justify-content-center ">
+
+
+        <div class="col-md-3 text-center my-3 ">
+            <div class="card card-frame ">
+                <div class="card-body ">
+                    <div class="row no-gutters justify-content-center ">
+
+                        <a ng-click="" class="btn btn-lg text_white " style="background-color: #2c7da0; " role="button" aria-pressed="true"><i style="padding-right: 5px; " class="fa-solid fa-users "></i>Clienti</a>
+                        <a ng-click="" class="btn btn-lg text_white " style="background-color: #2a6f97; " role="button" aria-pressed="true"><i style="padding-right: 5px; " class="fa-solid fa-users "></i>Clienti per Mese</a>
+                        <a ng-click="" class="btn btn-lg text_white " style="background-color: #014f86; " role="button" aria-pressed="true"><i style="padding-right: 5px; " class="fa-solid fa-box-open "></i>Articoli</a>
+                        <a ng-click="" class="btn btn-lg text_white " style="background-color: #01497c; " role="button" aria-pressed="true"><i style="padding-right: 5px; " class="fa-solid fa-map-pin "></i>Zone</a>
+                        <a ng-click="" class="btn btn-lg text_white " style="background-color: #013a63; " role="button" aria-pressed="true"><i style="padding-right: 5px; " class="fa-solid fa-user-group "></i>Mese</a>
+                        <a ng-click="" class="btn btn-lg text_white " style="background-color: #012a4a; " role="button" aria-pressed="true"><i style="padding-right: 5px; " class="fa-brands fa-bandcamp "></i>Marche</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-9 mb-5 mt-3 ">
+
+
+
+            <div class="card card-frame ">
+                <div class="card-body p-3 ">
+
+                    <div class="card card-frame " style="box-shadow: 3px 3px 3px 3px rgba(150, 150, 150, 0.315); ">
+                        <div class="card-body p-1 ">
+                            <h5 style="color: #4e88e7; " class=" p-3 mx-2 mt-2 ">Report
+                                <a ng-click="exportToExcel()" class="btn bg-gradient-success btn-sm mx-4 mt-1 px-5 " style="float: right; " type="button" aria-pressed="true">Exel</a>
+                            </h5>
+                        </div>
+                    </div>
+
+                    <div class="input-group input-group-outline mb-3 mt-3 ">
+                        <label class="form-label ">Ricerca</label>
+                        <input type="text " class="form-control ">
+                    </div>
+
+                    <div id="mytable" class="table-responsive rounded " style="box-shadow: 2px 2px 4px 4px rgba(128, 128, 128, 0.377); ">
+                        <table class="table align-items-center mb-0 ">
+                            <thead class="text-center ">
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ">Cliente </th>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ">2020</th>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ">2021</th>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ">2022</th>
+                                    <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-7 ">Difference </th>
+                                    <!--<th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Action</th> -->
+                                </tr>
+                            </thead>
+                            <tbody class="text-center ">
+                                <tr>
+                                    <td>
+                                        <div>
+                                            <div class="my-auto ">
+                                                <h6 class="mb-0 text-xs ">LES CAFES DE LA MEUSE SARL</h6>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-normal mb-0 ">0.00</p>
+                                    </td>
+
+                                    <td class="align-middle text-center ">
+                                        <div class="my-auto ">
+                                            <span class="me-2 text-xs ">0.00</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-dot ">
+                                            <span class="text-dark text-xs ">1,000.00</span>
+                                        </span>
+                                    </td>
+                                    <td class="align-middle text-center ">
+                                        <div class="mx-auto ">
+                                            <span class="me-2 text-xs text-success ">1,000.00</span>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+</div>

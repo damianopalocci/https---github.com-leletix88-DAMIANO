@@ -1,0 +1,308 @@
+<div class="container-fluid mb-4" ng-if="view_message == true">
+    <div class="row no-gutters">
+        <div class="col-12 col-md-12 mb-4 mb-md-0 text-center">
+            <div style="width: 100%; height: 100%;" class="card card-frame">
+                <div class="card-body">
+
+                    <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_cOIcXb.json"
+                        background="transparent" speed="2.5" style="width: 100%; height: 450px;" loop autoplay>
+                    </lottie-player>
+
+                    <h1 class=" font-weight-bold text-uppercase animate__animated animate__bounce animate__infinite"
+                        style="color: #088a8c;">Invio in corso ...</h1>
+                    <h3 class=" font-weight-bold text-uppercase animate__animated animate__bounce animate__infinite"
+                        style="color: #088a8c;">Non ricaricare la pagina fino al completamento ...</h3>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-show=" view_message==false">
+    <div class="container-fluid mt 3">
+        <div class="row mb-4">
+
+
+            <div class="alert alert-danger" style="color: white;" role="alert" ng-if="msg == true">
+                <strong>Attenzione!</strong> Non è stato trovato il codice ricercato
+            </div>
+
+
+            <div class="col-12 col-md-{{newcol}} mb-4 mb-md-0 text-center">
+                <div style="width: 100%; height: 100%;" class="card card-frame">
+                    <div class="card-body">
+                        <h3 class="text-uppercase text-center">Prospetto Aumenti prezzi di Acquisto
+                        </h3>
+
+                        <div class="row no-gutters mt-5 ">
+                            <div class="col-12 col-lg-8 col-md-6 ">
+                                <div class="input-group input-group-outline mt-4">
+                                    <input type="text " class="form-control " placeholder="Inserisci Codice"
+                                        ng-model="articolo" ng-change="resetsearch()">
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-4 col-md-6">
+                                <button class="btn btn-warning px-5 float-start mt-4"
+                                    ng-click="cerca(articolo)">Cerca</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6" ng-if="info_art.codice">
+                <div class="row justify-content-center ">
+
+                    <div class="col-12 col-md-6 d-flex align-items-stretch">
+                        <div style="width: 100%;" class="card">
+                            <div class="card-header p-3 pt-2 ">
+
+                                <div class="text-center pt-1">
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold " style="color: #023e8a; ">
+                                        fornitore principale</p>
+                                    <h3 class="mb-0 text-uppercase pt-4 ">{{info_art.costo}}</h3>
+                                </div>
+                            </div>
+                            <div class="card-footer p-2 ">
+                                <p class="mb-0 "><span class="text-success text-sm font-weight-bolder "></span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 d-flex align-items-stretch mt-3 mt-md-0">
+                        <div style="width: 100%;" class="card ">
+                            <div class="card-header p-3 pt-2 ">
+
+                                <div class=" pt-1 text-center ">
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold " style="color: #023e8a; ">
+                                        Coefficiente di ricarico attuale</p>
+                                    <h3 class="mb-0 text-uppercase pt-3 ">{{info_art.ricarico}} €
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="card-footer p-1 ">
+                                <p class="mb-0 "><span class="text-success text-sm font-weight-bolder "></span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row justify-content-center ">
+
+
+                    <div class="col-12 col-md-6 mt-3 d-flex align-items-stretch">
+                        <div style="width: 100%;" class="card ">
+                            <div class="card-header p-3 pt-2 ">
+
+                                <div class=" pt-1 text-center">
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold " style="color: #023e8a; ">
+                                        Aumento in euro</p>
+                                    <h3 class="mb-0 text-uppercase pt-4 ">{{aumento}}
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="card-footer p-2">
+                                <p class="mb-0 "><span class="text-success text-sm font-weight-bolder "></span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div ng-show="view_message == false">
+    <div class="container-fluid mt-3" ng-if="info_art.codice">
+
+        <div class="row no-gutters ">
+
+
+            <a ng-show="allist" name="" id="" class="btn bg-gradient-info offset-2" style="width: 70%; font-size: 17px;"
+                href="" role="button" data-bs-toggle="modal" data-bs-target="#modelId">Programma Aumento</a>
+
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+                aria-hidden="true">
+                <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header text-center">
+                            <h5 class="modal-title " style="font-size: 18px;">Listini</h5>
+
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <div class="container-fluid text-center">
+
+
+                                <div class="row no-gutters">
+
+
+                                    <div class="col-md-6" style="border-right: 1px solid rgba(128, 128, 128, 0.268)">
+                                        <div class="row no-gutters">
+                                            <h5 class="modal-title mb-3">Listini Coinvolti</h5>
+                                            <div class="col-12 text-center">
+
+                                                <span class="badge bg-gradient-success m-1"
+                                                    ng-repeat="un in unique_list track by $index">
+                                                    <i ng-click="remove(un)" class="fa-solid fa-xmark "
+                                                        style="color: red;font-size: 17px;cursor: pointer; margin-right: 8px !important;">
+                                                    </i> {{un}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-md-6">
+                                        <div class="row no-gutters">
+                                            <h5 class="modal-title mb-3">Listini Esclusi</h5>
+                                            <div class="col-12 text-center">
+                                                <span class="badge bg-gradient-danger m-1"
+                                                    ng-repeat="un in list_rimossi ">
+                                                    <i ng-click="readd(un)" class="fa-solid fa-xmark "
+                                                        style="color: white;font-size: 17px;cursor: pointer;  margin-right: 8px !important;">
+                                                    </i> {{un}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+                                </div>
+
+                                <div class="row mt-2 justify-content-center">
+                                    <h3 class="mt-3">Stai per applicare {{aumento}} su ogni listino
+                                        sopra indicato.</h3>
+
+                                    <div class="col-12 col-md-8 text-center">
+
+                                        <div class="mb-3 text-center">
+                                            <small id="helpId" class="form-text text-muted">Seleziona la
+                                                data di
+                                                programmazione
+                                                dell'aumento</small>
+                                            <input
+                                                style="border: 1px solid rgba(128, 128, 128, 0.364); font-size: 20px;"
+                                                type="date" class="form-control p-3 text-center" name="mdate" id="mdate"
+                                                aria-describedby="data" ng-model="seldata" placeholder="">
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                </div>
+
+
+                            </div>
+                            <button ng-show="seldata" type="button" class="btn bg-gradient-info text-center px-5 mt-3"
+                                ng-click="schedulate(seldata)">Schedula</button>
+                        </div>
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+        <div class=" row no-gutters ">
+            <div class=" col-12 col-md-3 mt-4 mt-md-0 ">
+
+                <div class=" row justify-content-center mb-5">
+
+                    <div class="card card-frame content-center">
+                        <div class="card-body">
+                            <form>
+                                <div class="input-group input-group-outline my-3">
+                                    <input type="number" class="form-control" ng-model="passoluto" lang="en" step="0.01"
+                                        placeholder="Voglio applicare un prezzo Assoluto">
+                                </div>
+
+                                <button class="btn bg-gradient-info" ng-click="calcolo_assoluto(passoluto)">Aumento
+                                    Assoluto
+                                    in
+                                    euro</button>
+
+                                <div class="input-group input-group-outline my-3">
+                                    <input type="number" class="form-control" ng-model="newprice"
+                                        placeholder="Conosco il nuovo prezzo di Acquisto">
+
+                                </div>
+                                <button type="button" class="btn bg-gradient-info mt-3 text-center px-5"
+                                    ng-click="calcolo(newprice)">Ricalcola Prezzo</button>
+
+                                <div class="input-group input-group-outline my-3">
+                                    <input type="number" class="form-control" ng-model="newpercprice"
+                                        placeholder="Conosco la percentuale di aumento del prezzo di Acquisto">
+                                </div>
+
+                                <button type="button" class="btn bg-gradient-info mt-3 text-center px-5"
+                                    ng-click="calcolo_percentuale(newpercprice)">Ricalcola %</button>
+
+
+                                <div class="input-group input-group-outline my-3">
+                                    <input type="number" class="form-control" ng-model="newnoarr"
+                                        placeholder="Voglio applicare un prezzo senza Arrotondamenti">
+                                </div>
+
+                                <button type="button" class="btn bg-gradient-info mt-3 text-center px-5"
+                                    ng-click="calcolo_noroud(newnoarr)">Prezzo assoluto senza arrotondamenti</button>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-12 col-md-9 mb-5">
+                <div class="card card-frame">
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-12 col-md-3">
+                                <img class="img-fluid" style="border-radius: 15px;" ng-src="{{info_art.ulr_image}}"
+                                    alt="immagine prodotto ">
+                            </div>
+                            <div class="col-12 col-md-6 text-lg-center ">
+
+                                <p> <b>Marca </b> <br>{{info_art.marca}}</p>
+                                <p> <b>Codice Originale </b> <br> {{info_art.cod_originale}}</p>
+                                <p> <b>Descrizione </b> <br> {{info_art.descrizione}}</p>
+
+                            </div>
+
+                            <br>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>

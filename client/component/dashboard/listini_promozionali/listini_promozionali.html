@@ -1,0 +1,401 @@
+<style>
+    .color_button:hover {
+        background-color: #0b5351;
+        color: white;
+        box-shadow: 3px 3px 3px 3px rgba(128, 128, 128, 0.364), 2px 2px 2px 2px rgba(44, 44, 44, 0.487);
+        transition: 0.1s;
+    }
+</style>
+
+
+<div class="container-fluid mt-5 mb-1 pt-5" ng-show="cerca == 1">
+    <div class=" row no-gutters justify-content-center ">
+        <div class="col-md-10 col-12 mt-3 mt-md-0 ">
+
+
+            <div class="card card-nav-tabs ">
+
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 text-center ">
+                    <div style="background-color: #0b5351; color: white; " class=" shadow-secondary border-radius-lg pt-4 pb-3 ">
+                        <h6 class="text-white text-uppercase ps-3 pt-2 " style="font-size: 35px; ">Listini Promozionali </h6>
+                    </div>
+                </div>
+
+
+                <form class="p-3 mt-4 pb-0 ">
+
+                    <p class="text-uppercase font-weight-bold" style="font-size: 18px; ">Selezionare il Listino </p>
+
+                    <select style="border: 1px solid rgba(128, 128, 128, 0.371); font-size: 19px;" class="form-select mb-5 text-center" ng-model="myid_listino">
+                        <option style="font-size: 19px;" class="text-center text-uppercase"  ng-repeat="el in db_listini" value="{{el.IDLISTINO}}">{{el.DESCRIZIONE}}</option> 
+                    </select>
+
+                </form>
+                <button type="button" class="btn text-uppercase mb-5 color_button" style="background-color: #226261; color: white; margin-left: 150px; margin-right: 150px; font-size: 16px;" ng-click="cerca_listino(el.IDLISTINO)">Cerca</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid mt-4 mb-1 pt-5" ng-show="data_listino.db.length > 0">
+    <div class=" row no-gutters justify-content-center ">
+        <div class="col-md-10 col-12 mt-3 mt-md-0 ">
+            <div class="card card-nav-tabs ">
+                <div class="accordion accordion-flush p-3" id="accordionFlushExample" ng-click="reve = !reve">
+                    <div class="accordion-item ">
+                        <h2 class="accordion-header" style="margin-left: 45.7%;" id="flush-headingOne">
+                            <button class="accordion-button collapsed text-uppercase" style="font-size: 20px; font-weight: bold;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                         listino 
+                         <span ng-show="reve"><i class="fa-solid fa-chevron-down ms-2"></i></span> 
+                         <span ng-show="!reve"><i class="fa-solid fa-chevron-up ms-2"></i></span>  
+                        </button>
+                        </h2>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                            <div class="card card-frame mx-2 mt-3 ">
+                                <div class="card-body px-4 ">
+
+
+                                    <button class="btn btn-success px-5 float-end mb-3 mb-0" type="button" ng-click="exportReportToExcel()">Exel</button>
+
+                                    <div class="input-group input-group-outline my-3 ">
+                                        <input type="text" class="form-control " placeholder="Filtra..." ng-model="myfilter1">
+                                    </div>
+
+                                    <div class="card">
+                                        <div id="mytable" class="table-responsive ">
+                                            <table class="table align-items-center mb-0 ">
+                                                <thead class="text-center ">
+                                                    <tr>
+                                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">Codice</th>
+                                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">Listino</th>
+                                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">Sconto 60</th>
+                                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">Qta 1</th>
+                                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">Prezzo 1</th>
+                                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">Qta 2</th>
+                                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">Prezzo 2</th>
+                                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">Qta 3</th>
+                                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">Prezzo 3</th>
+                                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">Qta 4</th>
+                                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">Prezzo 4</th>
+                                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">Qta 5</th>
+                                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">Prezzo 5</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="text-center ">
+                                                    <tr ng-repeat="el in data_listino.listino | filter : myfilter1">
+
+
+                                                        <td>
+                                                            <p class="text-sm font-weight-normal mb-0 font-weight-bold ">{{el.codice}}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p class="text-sm font-weight-normal mb-0 font-weight-bold ">{{el['listino' ]| number : 2}}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p class="text-sm font-weight-normal mb-0 font-weight-bold ">{{el['Sconto 60' ]| number : 2}}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p class="text-sm font-weight-normal mb-0 font-weight-bold "><span ng-if="el[ 'Qta 1' ]> 0">{{el['Qta 1' ]| number : 2}}</span>
+                                                            </p>
+                                                        </td>
+                                                        <td>
+                                                            <p class="text-sm font-weight-normal mb-0 font-weight-bold "><span ng-if="el['Prezzo 1' ] > 0">{{el['Prezzo 1' ]| number : 2}}</span></p>
+                                                        </td>
+                                                        <td>
+                                                            <p class="text-sm font-weight-normal mb-0 font-weight-bold "><span ng-if="el['Qta 2' ] > 0">{{el['Qta 2' ]| number : 2}}</span></p>
+                                                        </td>
+                                                        <td>
+                                                            <p class="text-sm font-weight-normal mb-0 font-weight-bold "><span ng-if="el['Prezzo 2' ] > 0">{{el['Prezzo 2' ]| number : 2}}</span></p>
+                                                        </td>
+                                                        <td>
+                                                            <p class="text-sm font-weight-normal mb-0 font-weight-bold "><span ng-if="el['Qta 3' ] > 0">{{el['Qta 3' ]| number : 2}}</span></p>
+                                                        </td>
+                                                        <td>
+                                                            <p class="text-sm font-weight-normal mb-0 font-weight-bold "><span ng-if="el['Prezzo 3' ] > 0">{{el['Prezzo 3' ]| number : 2}}</span></p>
+                                                        </td>
+                                                        <td>
+                                                            <p class="text-sm font-weight-normal mb-0 font-weight-bold "><span ng-if="el['Qta 4' ] > 0">{{el['Qta 4' ]| number : 2}}</span></p>
+                                                        </td>
+                                                        <td>
+                                                            <p class="text-sm font-weight-normal mb-0 font-weight-bold "><span ng-if="el['Prezzo 4' ] > 0">{{el['Prezzo 4' ]| number : 2}}</span></p>
+                                                        </td>
+                                                        <td>
+                                                            <p class="text-sm font-weight-normal mb-0 font-weight-bold "><span ng-if="el['Qta 5' ] > 0">{{el['Qta 5' ]| number : 2}}</span></p>
+                                                        </td>
+                                                        <td>
+                                                            <p class="text-sm font-weight-normal mb-0 font-weight-bold "><span ng-if="el['Prezzo 5' ] > 0">{{el['Prezzo 5' ]| number : 2}}</span></p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid mt-4 mb-1 pt-5" ng-show="data_listino.db.length > 0">
+    <div class=" row no-gutters justify-content-center ">
+        <div class="col-md-10 col-12 mt-3 mt-md-0 ">
+            <div class="card card-nav-tabs ">
+                <div class="accordion accordion-flush p-3" id="accordionFlushExample" ng-click="rever = !rever">
+                    <div class="accordion-item justify-items-center">
+                        <h2 class="accordion-header " style="margin-left: 40%; justify-content: center !important;" id="flush-headingOne">
+                            <button class="accordion-button collapsed text-uppercase " style="font-size: 20px; font-weight: bold;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne2" aria-expanded="false" aria-controls="flush-collapseOne2">
+                         Andamento Fatturato 
+                         <span ng-show="rever"><i class="fa-solid fa-chevron-down ms-2"></i></span> 
+                         <span ng-show="!rever"><i class="fa-solid fa-chevron-up ms-2"></i></span>  
+                        </button>
+                        </h2>
+                        <div id="flush-collapseOne2" class="accordion-collapse collapse" aria-labelledby="flush-headingOne2" data-bs-parent="#accordionFlushExample2">
+                            <div class="card card-frame mx-2 mt-3 ">
+                                <div class="card-body px-4 ">
+
+
+                                    <button class="btn btn-success px-5 float-end mb-3 mb-0" type="button" ng-click="exportReportToExcel2()">Exel</button>
+
+                                    <div class="input-group input-group-outline my-3 ">
+                                        <input type="text" class="form-control " placeholder="Filtra..." ng-model="myfilter2">
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="table-responsive ">
+                                            <table class="table align-items-center mb-0 ">
+                                                <thead class="text-center ">
+                                                    <tr>
+                                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">Codice</th>
+                                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">Periodo Precedente</th>
+                                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">Periodo Corrente</th>
+                                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">Differenza</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="text-center ">
+                                                    <tr>
+                                                        <!-- ng-repeat="| filter : myfilter2" -->
+                                                        <td>
+                                                            <p class="text-sm font-weight-normal mb-0 font-weight-bold ">WB301</p>
+                                                        </td>
+                                                        <td>
+                                                            <p class="text-sm font-weight-normal mb-0 font-weight-bold ">124125351</p>
+                                                        </td>
+                                                        <td>
+                                                            <p class="text-sm font-weight-normal mb-0 font-weight-bold ">124512412</p>
+                                                        </td>
+                                                        <td>
+                                                            <p class="text-sm font-weight-normal mb-0 font-weight-bold ">124124124123</p>
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-danger mt-5 mx-5 text-white text-center" style="font-size: 18px;" role="alert" ng-show="msg == 1">
+    <strong class="me-3" style="font-size: 21px;">Attenzione!</strong>Selezionare il Listino 😅
+</div>
+
+<div class="container-fluid" ng-if="data_listino.length <= 0">
+    <div class="row justify-content-center ">
+        <p class="text-uppercase font-weight-bold text-center" style="color: #0b5351;font-size: 50px;">Elaborazione Listino...</p>
+        <lottie-player src="https://assets1.lottiefiles.com/private_files/lf30_kujmr0ul.json" background="transparent" speed="2.5" style="width: 900px; height: 500px;" loop autoplay></lottie-player>
+    </div>
+</div>
+
+
+<div class="container-fluid mt-5 mb-1 pt-5" ng-show="data_listino.db.length > 0">
+    <div class=" row no-gutters justify-content-center ">
+        <div class="col-sm-4 mt-3 ">
+            <div class="card card-nav-tabs ">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 text-center ">
+                    <div style="background-color: #34a0a4; color: white; " class=" shadow-secondary border-radius-lg pt-4 pb-3 ">
+                        <h5 class="text-white text-uppercase ps-3 pt-2 ">Top 5 Articoli</h5>
+                    </div>
+                    <div class="card my-3" style="box-shadow: 3px 3px 3px 3px rgba(128, 128, 128, 0.364); ">
+                        <div class="table-responsive ">
+                            <table class="table align-items-center mb-0 ">
+                                <thead class="text-center ">
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">Codice</th>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">Imponibile</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-center ">
+                                    <tr ng-repeat=" el in data_listino.dbcodici">
+
+                                        <td>
+                                            <p class="text-sm font-weight-normal mb-0 font-weight-bold ">{{el.CODICE}}</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-sm font-weight-normal mb-0 font-weight-bold ">{{el.IMPNETTO | number:2}} €</p>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 mt-3 ">
+            <div class="card card-nav-tabs ">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 text-center ">
+                    <div style="background-color: #52b69a; color: white; " class=" shadow-secondary border-radius-lg pt-4 pb-3 ">
+                        <h5 class="text-white text-uppercase ps-3 pt-2 ">Top Agenti</h5>
+                    </div>
+                    <div class="card my-3" style="box-shadow: 3px 3px 3px 3px rgba(128, 128, 128, 0.364); ">
+                        <div class="table-responsive ">
+                            <table class="table align-items-center mb-0 ">
+                                <thead class="text-center ">
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">Agenti</th>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">Imponibile</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-center ">
+                                    <tr ng-repeat=" el in data_listino.dbagenti">
+
+                                        <td>
+                                            <p class="text-sm font-weight-normal mb-0 font-weight-bold ">{{el.AGENTE}}</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-sm font-weight-normal mb-0 font-weight-bold ">{{el.IMPNETTO | number:2}} €</p>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 mt-3 ">
+            <div class="card card-nav-tabs ">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 text-center ">
+                    <div style="background-color: #76c893; color: white; " class=" shadow-secondary border-radius-lg pt-4 pb-3 ">
+                        <h5 class="text-white text-uppercase ps-3 pt-2 ">Top 5 Clienti</h5>
+                    </div>
+                    <div class="card my-3" style="box-shadow: 3px 3px 3px 3px rgba(128, 128, 128, 0.364); ">
+                        <div class="table-responsive ">
+                            <table class="table align-items-center mb-0 ">
+                                <thead class="text-center ">
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">Clienti</th>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">Imponibile</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-center ">
+                                    <tr ng-repeat=" el in data_listino.dbclienti">
+
+                                        <td>
+                                            <p class="text-sm font-weight-normal mb-0 font-weight-bold ">{{el.CLIENTE}}</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-sm font-weight-normal mb-0 font-weight-bold ">{{el.IMPNETTO | number:2}} €</p>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="container my-4" ng-show="data_listino.db.length > 0">
+    <div class="row no-gutters justify-content-center ">
+        <div class="col-12 ">
+
+            <div class="card card-frame mx-2 mt-3 ">
+                <div class="card-body px-4 ">
+
+                    <div class="input-group input-group-outline my-3 ">
+                        <input type="text " class="form-control " placeholder="Filtra... " ng-model="myfilter2">
+                    </div>
+
+                    <div class="card " style="box-shadow: 3px 3px 3px 3px rgba(128, 128, 128, 0.364); ">
+                        <div class="table-responsive ">
+                            <table class="table align-items-center mb-0 ">
+                                <thead class="text-center ">
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">Codice</th>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">Agente</th>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">Cliente</th>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">Prezzo Unitario</th>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">Qta Ordinata</th>
+                                        <th class="text-uppercase text-secondary text-xs font-weight-bold opacity-7 ">Imponibile</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-center ">
+                                    <tr ng-repeat="el in data_listino.db | filter : myfilter2">
+
+                                        <td>
+                                            <p class="text-sm font-weight-normal mb-0 font-weight-bold ">{{el.CODICE}}</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-sm font-weight-normal mb-0 font-weight-bold ">{{el.AGENTE}}</p>
+                                        </td>
+
+                                        <td>
+                                            <p class="text-sm font-weight-normal mb-0 font-weight-bold ">{{el.CLIENTE}}</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-sm font-weight-normal mb-0 font-weight-bold ">{{el['prezzou']}} €</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-sm font-weight-normal mb-0 font-weight-bold ">{{el['QTA']}}</p>
+                                        </td>
+                                        <td>
+                                            <p class="text-sm font-weight-normal mb-0 font-weight-bold ">{{el.IMPNETTO | number : 2}} €</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+
+
+        </div>
+    </div>
+</div>
